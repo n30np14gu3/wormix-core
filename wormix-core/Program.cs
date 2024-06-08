@@ -1,10 +1,9 @@
-﻿namespace wormix_core
+﻿namespace wormix_core;
+
+abstract class Program
 {
-    abstract class Program
+    static void Main(string[] argv)
     {
-        static void Main(string[] argv)
-        {
-            
-        }
+        
     }
 }
