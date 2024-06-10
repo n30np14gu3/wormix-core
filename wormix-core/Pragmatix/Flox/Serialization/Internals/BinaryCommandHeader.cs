@@ -116,10 +116,7 @@ public class BinaryCommandHeader : ICommandHeader
         _rawLength = _length;
         _flags = ConstFlags;
         
-        //Once of random
-        _flags |= 128;
-        _rawLength |= 1073741824;
-        _flags |= 8;
+        //Pseudo encryption not needed
     }
 
     private void WriteRaws(Stream output)

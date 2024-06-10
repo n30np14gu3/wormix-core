@@ -10,7 +10,14 @@
 
     <ItemGroup>
       <PackageReference Include="ConsoleGUI" Version="1.4.2" />
+      <PackageReference Include="HexDump" Version="1.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Gui\" />
+      <Folder Include="Pragmatix\Wormix\Messages\Server\" />
+      <Folder Include="Server\" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,7 @@
-﻿namespace wormix_core;
+﻿using System.Net;
+using System.Net.Sockets;
+
+namespace wormix_core;
 
 abstract class Program
 {
@@ -6,4 +9,5 @@ abstract class Program
     {
         
     }
+    
 }
