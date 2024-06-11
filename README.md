@@ -7,8 +7,7 @@ Created by [@shockbyte](https://t.me/shockbyte)
 Special thanks for 
 * [Wormixtest](https://wormixtest.com)
 * BiosNop
-* JuneSomething (R.I.P)
-* 
+* JuneSomething (R.I.P.)
 
 ## Reversing & Analyzing tools
 

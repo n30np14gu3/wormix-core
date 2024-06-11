@@ -36,7 +36,7 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
                 client.Client.Receive(data);
                 Console.WriteLine($"RAW:\n{HexDump.HexDump.Format(data)}");
             }
-
+            
             if (_controllers.ContainsKey(cmd.GetCommandId()))
             {
                 Console.WriteLine($"Processing via {_controllers[cmd.GetCommandId()].GetControllerName()}");

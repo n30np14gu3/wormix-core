@@ -113,17 +113,15 @@ public class BinaryCommandHeader : ICommandHeader
 
     private void BuildHeaderInRaws()
     {
-        _rawCommandId = _commandId;
-        _rawLength = _length;
-        _flags = ConstFlags;
-        
-        //Pseudo encryption not needed
+        _rawCommandId = _commandId | 32768;
+        _flags = ConstFlags | 32;
+        _rawLength = _length | 2147483648;
     }
 
     private void WriteRaws(Stream output)
     {
         BinaryWriter bw = new BinaryWriter(output);
-        bw.Write(_flags);
+        bw.Write((byte)_flags);
         bw.Write((ushort)_rawCommandId);
         bw.Write(_rawLength);
     }
