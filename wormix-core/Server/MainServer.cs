@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using wormix_core.Controllers;
+using wormix_core.Controllers.Account;
+using wormix_core.Controllers.Service;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
 
 namespace wormix_core.Server;
@@ -9,8 +11,11 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
 {
     private readonly Dictionary<uint, GameControllerBehavior> _controllers = new()
     {
+        {1, new LoginController()},
         
+        {16, new PingController()}
     };
+    
     protected override void OnConnect(TcpClient newClient)
     {
         Console.WriteLine("New client connected");
@@ -40,13 +45,13 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
             if (_controllers.ContainsKey(cmd.GetCommandId()))
             {
                 Console.WriteLine($"Processing via {_controllers[cmd.GetCommandId()].GetControllerName()}");
-                _controllers[cmd.GetCommandId()].Handle(data, client);
+                _controllers[cmd.GetCommandId()].Handle(data, client, cmd);
             }
                 
         }
-        catch (ArgumentException)
+        catch (ArgumentException ex)
         {
-            Console.WriteLine("Invalid command header");
+            Console.WriteLine($"Argument exception: {ex.Message}");
         }
         catch (Exception ex)
         {

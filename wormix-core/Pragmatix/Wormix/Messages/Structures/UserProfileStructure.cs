@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
+﻿using wormix_core.Extensions;
 
-public struct UserProfileStructure()
+namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
+
+public struct UserProfileStructure() : IMessage, ISerializable
 {
     public uint Id;
     public string SocialId;
@@ -10,12 +12,64 @@ public struct UserProfileStructure()
     
     public int Rating;
 
-    public List<object> WormsGroup;
-    public List<object> WeaponRecordList;
+    public List<WormStructure> WormsGroup = new();
+    public List<WeaponStructure> WeaponRecordList = new();
     
-    public List<object> Stuff;
+    public List<ushort> Stuff = new();
     
-    public int ReactionRate;
+    public int ReactionRate = new();
     
-    public List<object> Recipes = new();
+    public List<ushort> Recipes = new();
+    public uint GetSize()
+    {
+        return (uint)(
+            4 //Id
+            
+            + 4 //Money
+            + 4 //RealMoney
+            
+            + 4 // Rating
+            
+            + 2 //WormGroupLength
+            + WormsGroup.Sum(x => x.GetSize()) * WormsGroup.Count //WormStructure[]
+            
+            + 2 //WeaponRecordListLength
+            + WeaponRecordList.Sum(x => x.GetSize()) * WeaponRecordList.Count //WeaponStructure[]
+            
+            + 2 //StuffLength
+            + 2 * Stuff.Count //Stuff[]
+            
+            + 4 //ReactionRate
+            
+            + 2 + SocialId.Length
+            
+            + 2 //RecipesLength
+            + 2 * Recipes.Count //Recipes[]
+        );
+    }
+
+    public void Serialize(Stream output)
+    {
+        BinaryWriter bw = new BinaryWriter(output);
+        
+        bw.WriteUInt32Be(Id);
+        bw.WriteUInt32Be(Money);
+        bw.WriteUInt32Be(RealMoney);
+        bw.WriteUInt32Be((uint)Rating);
+        
+        bw.WriteUInt16Be((ushort)WormsGroup.Count);
+        WormsGroup.ForEach((x) => x.Serialize(output));
+        
+        bw.WriteUInt16Be((ushort)WeaponRecordList.Count);
+        WeaponRecordList.ForEach((x) => x.Serialize(output));
+        
+        bw.WriteUInt16Be((ushort)Stuff.Count);
+        Stuff.ForEach((x) => bw.WriteUInt16Be(x));
+        
+        bw.WriteUInt32Be((uint)ReactionRate);
+        bw.WriteUTF8(SocialId);
+        
+        bw.WriteUInt16Be((ushort)Recipes.Count);
+        Recipes.ForEach((x) => bw.WriteUInt16Be(x));
+    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct LoginError
+public struct LoginError : IMessage
 {
     public const int ProphylacticWork = 0;
     public const int IncorrectKey = 1;
@@ -9,4 +9,8 @@ public struct LoginError
     public const int Ban = 4;
 
     public int Result;
+    public uint GetSize()
+    {
+        return 4; // Result sizeof
+    }
 }

@@ -16,8 +16,6 @@
 
     <ItemGroup>
       <Folder Include="Gui\" />
-      <Folder Include="Pragmatix\Wormix\Serialization\Client\" />
-      <Folder Include="Pragmatix\Wormix\Serialization\Server\" />
     </ItemGroup>
 
 </Project>

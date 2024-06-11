@@ -3,6 +3,6 @@
 public interface ICommandSerializer
 {
     uint GetCommandId();
-    void SerializeCommand(object comand, Stream output);
+    void SerializeCommand(object command, Stream output);
     object DeserializeCommand(Stream input, ICommandHeader header);
 }

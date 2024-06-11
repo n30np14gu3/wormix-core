@@ -1,10 +1,18 @@
 ﻿using System.Net;
+using wormix_core.Extensions;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 
 namespace wormix_core.Pragmatix.Flox.Serialization.Internals;
 
 public class BinaryCommandHeader : ICommandHeader
 {
+    /// <summary>
+    /// 1 byte - flag<br/>
+    /// 2 bytes - CommandId<br/>
+    /// 4 bytes - Length
+    /// </summary>
+    public const int HeaderSize = 7;
+    
     private const uint CleanCommandId = 32767;
     private const uint CleanLength = 1073741823;
     
@@ -113,16 +121,33 @@ public class BinaryCommandHeader : ICommandHeader
 
     private void BuildHeaderInRaws()
     {
-        _rawCommandId = _commandId | 32768;
-        _flags = ConstFlags | 32;
-        _rawLength = _length | 2147483648;
+        Random rn = new Random((int)DateTime.Now.Ticks);
+        
+        _rawCommandId = _commandId;
+        _flags = ConstFlags;
+        _rawLength = _length;
+
+        if (rn.Next(0, 2) % 2 == 0)
+            _flags |= 128;
+        else
+            _rawCommandId |= 32768;
+        
+        if (rn.Next(0, 2) % 2 == 0)
+            _flags |= 32;
+        else
+            _rawLength |= 1073741824;
+        
+        if (rn.Next(0, 2) % 2 == 0)
+            _flags |= 8;
+        else
+            _rawLength |=  2147483648;
     }
 
     private void WriteRaws(Stream output)
     {
         BinaryWriter bw = new BinaryWriter(output);
         bw.Write((byte)_flags);
-        bw.Write((ushort)_rawCommandId);
-        bw.Write(_rawLength);
+        bw.WriteUInt16Be((ushort)_rawCommandId);
+        bw.WriteUInt32Be(_rawLength);
     }
 }
