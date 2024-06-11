@@ -17,7 +17,6 @@
     <ItemGroup>
       <Folder Include="Gui\" />
       <Folder Include="Pragmatix\Wormix\Messages\Server\" />
-      <Folder Include="Server\" />
     </ItemGroup>
 
 </Project>

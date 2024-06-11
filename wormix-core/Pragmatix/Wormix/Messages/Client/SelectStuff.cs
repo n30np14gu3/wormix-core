@@ -2,5 +2,5 @@
 
 public struct SelectStuff(int stuffId = 0)
 {
-    public int StuffId;
+    public int StuffId = stuffId;
 }

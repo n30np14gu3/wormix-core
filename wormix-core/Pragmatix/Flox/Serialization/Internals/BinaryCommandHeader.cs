@@ -1,4 +1,5 @@
-﻿using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
+﻿using System.Net;
+using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 
 namespace wormix_core.Pragmatix.Flox.Serialization.Internals;
 
@@ -49,7 +50,7 @@ public class BinaryCommandHeader : ICommandHeader
             Parse();
             return this;
         }
-
+        Console.WriteLine("Error");
         throw new ArgumentException(IllegalCommandHeader);
     }
 
@@ -61,7 +62,7 @@ public class BinaryCommandHeader : ICommandHeader
             WriteRaws(output);
             return;
         }
-
+        
         throw new ArgumentException(IllegalVarValues);
     }
 
@@ -69,8 +70,8 @@ public class BinaryCommandHeader : ICommandHeader
     {
         BinaryReader br = new BinaryReader(stream);
         _flags = br.ReadByte();
-        _rawCommandId = br.ReadUInt16();
-        _rawLength = br.ReadUInt32();
+        _rawCommandId = (uint)IPAddress.HostToNetworkOrder(br.ReadInt16());
+        _rawLength = (uint)IPAddress.HostToNetworkOrder(br.ReadInt32());
     }
 
     private bool Validate()
@@ -86,7 +87,7 @@ public class BinaryCommandHeader : ICommandHeader
 
     private bool CheckB()
     {
-        return Convert.ToBoolean(_flags & BFlag) != Convert.ToBoolean(_rawLength & BSync);
+        return Convert.ToBoolean(_flags & BFlag) != Convert.ToBoolean(_rawCommandId & BSync);
     }
 
     private bool CheckD()
@@ -106,7 +107,7 @@ public class BinaryCommandHeader : ICommandHeader
 
     private void Parse()
     {
-        _commandId = _rawLength & CleanCommandId;
+        _commandId = _rawCommandId & CleanCommandId;
         _length = _rawLength & CleanLength;
     }
 
@@ -122,7 +123,7 @@ public class BinaryCommandHeader : ICommandHeader
     private void WriteRaws(Stream output)
     {
         BinaryWriter bw = new BinaryWriter(output);
-        bw.Write((byte)_flags);
+        bw.Write(_flags);
         bw.Write((ushort)_rawCommandId);
         bw.Write(_rawLength);
     }
