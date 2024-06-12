@@ -18,7 +18,7 @@ public class DomainPolicyServer(IPAddress ip, int port) : ServerBehavior(ip, por
 
     protected override void Process(TcpClient client)
     {
-        if (client.Client != null)
+        if (client?.Client != null)
         {
             client.Client.Send(Encoding.UTF8.GetBytes(_defaultPolicy));
             client.Close(); //Close after sending
