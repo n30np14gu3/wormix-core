@@ -35,24 +35,30 @@ public class LoginController : GameControllerBehavior
                 {
                     
                     Id = 1,
-                    Money = 1,
-                    Rating = 2,
-                    ReactionRate = 3,
-                    RealMoney = 4,
+                    Money = 1337,
+                    Rating = 2337,
+                    ReactionRate = 3337,
+                    RealMoney = 4337,
                     SocialId = "1",
-                    // WormsGroup = new List<WormStructure>
-                    // {
-                    //     new()
-                    //     {
-                    //         OwnerId = 2,
-                    //         SocialOwnerId = "2",
-                    //         Armor = 1,
-                    //         Attack = 1,
-                    //         Experience = 1,
-                    //         Hat = 0,
-                    //         Level = 2
-                    //     }
-                    // }
+                    WormsGroup = new List<WormStructure>
+                    {
+                        new WormStructure
+                        {
+                            OwnerId = 1,
+                            SocialOwnerId = "1",
+                            Armor = 1,
+                            Attack = 1,
+                            Experience = 1,
+                            Level = 10,
+                            Hat = 3
+                        }
+                    },
+                    WeaponRecordList = new()
+                    {
+                        new() { Id = 1, Count = -1 },
+                        new() { Id = 2, Count = -1 },
+                        new() { Id = 3, Count = -1 },
+                    }
                 },
                 AvailableSearchKeys = 0,
                 Friends = 0,
