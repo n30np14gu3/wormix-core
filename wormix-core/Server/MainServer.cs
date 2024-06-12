@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using wormix_core.Controllers;
 using wormix_core.Controllers.Account;
+using wormix_core.Controllers.Game;
 using wormix_core.Controllers.Service;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
 
@@ -13,6 +14,8 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
     {
         {1, new LoginController()},
         {3, new ShopController()},
+        {4, new ArenaController()},
+        {6, new BattleController()},
         {16, new PingController()}
     };
     
