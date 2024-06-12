@@ -21,7 +21,7 @@ public struct EnterAccount() : IMessage, ISerializable
         return
             (uint)(
                 2 + UserProfileStructure.GetSize() //UserProfileStructure
-                   + 2 + 2 * UserProfileStructures.Sum((x) => x.GetSize()) // UserProfileStructure[]
+                   + 2 + UserProfileStructures.Sum((x) => x.GetSize() + 2) // UserProfileStructure[]
                    + 2 + DailyBonusStructure.GetSize() // DailyBonusStructure
                    + 2 // OnlineFriends
                    + 2 // Friends

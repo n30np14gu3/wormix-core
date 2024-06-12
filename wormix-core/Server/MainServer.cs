@@ -12,7 +12,7 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
     private readonly Dictionary<uint, GameControllerBehavior> _controllers = new()
     {
         {1, new LoginController()},
-        
+        {3, new ShopController()},
         {16, new PingController()}
     };
     
