@@ -8,7 +8,8 @@ public static class BinaryWriterExtensions
     public static void WriteUTF8(this BinaryWriter bw, string str)
     {
         bw.WriteUInt16Be((ushort)str.Length);
-        bw.Write(Encoding.UTF8.GetBytes(str));
+        if(str.Length != 0)
+            bw.Write(Encoding.UTF8.GetBytes(str));
     }
     
     public static void WriteUInt32Be(this BinaryWriter bw, uint val)

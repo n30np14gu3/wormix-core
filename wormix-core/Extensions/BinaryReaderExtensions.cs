@@ -7,7 +7,10 @@ public static class BinaryReaderExtensions
 {
     public static string ReadUTF8(this BinaryReader reader)
     {
-        return Encoding.UTF8.GetString(reader.ReadBytes(reader.ReadUInt16Be()));
+        ushort len = reader.ReadUInt16Be();
+        if(len != 0) 
+            return Encoding.UTF8.GetString(reader.ReadBytes(len));
+        return "";
     }
 
     public static uint ReadUInt32Be(this BinaryReader reader)

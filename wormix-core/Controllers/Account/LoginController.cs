@@ -39,39 +39,39 @@ public class LoginController : GameControllerBehavior
                     Rating = 2,
                     ReactionRate = 3,
                     RealMoney = 4,
-                    SocialId = "shockbyte",
-                    WormsGroup = new List<WormStructure>
-                    {
-                        new()
-                        {
-                            OwnerId = 1,
-                            SocialOwnerId = "shockbyte",
-                            Armor = 1,
-                            Attack = 1,
-                            Experience = 0,
-                            Hat = 0,
-                            Level = 1
-                        }
-                    }
+                    SocialId = "1",
+                    // WormsGroup = new List<WormStructure>
+                    // {
+                    //     new()
+                    //     {
+                    //         OwnerId = 2,
+                    //         SocialOwnerId = "2",
+                    //         Armor = 1,
+                    //         Attack = 1,
+                    //         Experience = 1,
+                    //         Hat = 0,
+                    //         Level = 2
+                    //     }
+                    // }
                 },
                 AvailableSearchKeys = 0,
                 Friends = 0,
                 OnlineFriends = 0,
-                IsBonusDay = true,
+                IsBonusDay = false,
                 DailyBonusStructure = new DailyBonusStructure
                 {
-                    DailyBonusType = 0xA,
-                    DailyBonusCount = 0xB,
-                    LoginSequence = 0xC
+                    DailyBonusType = 0,
+                    DailyBonusCount = 0,
+                    LoginSequence = 0
                 },
                 BonusDaysStructure = new BonusDaysStructure
                 {
                     BattlesCount = 1,
-                    BonusMessage = "SOSI",
+                    BonusMessage = "",
                     RealMoney = 1,
                     Money = 1
                 },
-                SessionKey = "session_key"
+                SessionKey = "session_key",
             };
 
             byte[] response = new byte[BinaryCommandHeader.HeaderSize + enter.GetSize() + 16 /*MD5 Sum*/];
@@ -83,6 +83,8 @@ public class LoginController : GameControllerBehavior
             
             
             Console.WriteLine($"Sending:\n{HexDump.HexDump.Format(response)}");
+
+            //Client?.Client.Send(File.ReadAllBytes(@"C:\Users\shockbyte\Desktop\EnterAccount.bin"));
             Client?.Client.Send(response);
 
         }

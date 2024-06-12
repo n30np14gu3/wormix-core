@@ -27,7 +27,7 @@ public struct EnterAccount() : IMessage, ISerializable
                    + 2 // Friends
                    + 2 + SessionKey.Length // SessionKey
                    + 1 // IsBonusDay
-                   + 2 + BonusDaysStructure.GetSize() //BonusDaysStructure
+                   + (IsBonusDay ? + 2 + BonusDaysStructure.GetSize() : 0) //BonusDaysStructure
                    + 1 // AvailableSearchKeys
                    + 4 + 4 * Reagents.Count //Reagents[]
                 )
@@ -57,9 +57,12 @@ public struct EnterAccount() : IMessage, ISerializable
         bw.WriteUTF8(SessionKey);
         
         bw.Write(IsBonusDay);
-        
-        bw.WriteUInt16Be((ushort)BonusDaysStructure.GetSize());
-        BonusDaysStructure.Serialize(output);
+
+        if (IsBonusDay)
+        {
+            bw.WriteUInt16Be((ushort)BonusDaysStructure.GetSize());
+            BonusDaysStructure.Serialize(output);
+        }
         
         bw.Write((byte)AvailableSearchKeys);
         

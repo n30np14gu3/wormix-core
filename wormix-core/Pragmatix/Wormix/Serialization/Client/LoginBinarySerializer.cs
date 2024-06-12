@@ -1,4 +1,5 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Flox.Secure;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 
@@ -38,7 +39,6 @@ public class LoginBinarySerializer : ICommandSerializer
 
             login.SocialCode = br.ReadByte();
         }
-
         return login;
     }
 }

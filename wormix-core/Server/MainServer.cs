@@ -47,6 +47,10 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
                 Console.WriteLine($"Processing via {_controllers[cmd.GetCommandId()].GetControllerName()}");
                 _controllers[cmd.GetCommandId()].Handle(data, client, cmd);
             }
+            else
+            {
+                Console.WriteLine("Unknown CMD ID");
+            }
                 
         }
         catch (ArgumentException ex)

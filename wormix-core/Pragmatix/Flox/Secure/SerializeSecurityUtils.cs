@@ -13,4 +13,12 @@ public class SerializeSecurityUtils
             totalBytes.ToArray()
             );
     }
+
+    public static bool IsSecure(byte[] input)
+    {
+        byte[] calculated = Secure(input.Take(input.Length - 16).ToArray());
+        byte[] hash = input.Skip(input.Length - 16).ToArray();
+
+        return calculated.SequenceEqual(hash);
+    }
 }
