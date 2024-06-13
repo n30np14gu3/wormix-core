@@ -25,33 +25,10 @@ public class ArenaController : GameControllerBehavior
 
         ArenaResult arena = new()
         {
-            UserProfileStructures = new()
-            {
-                new()
-                {
-                    Id = 2,
-                    Money = 100,
-                    Rating = 100,
-                    ReactionRate = 100,
-                    RealMoney = 100,
-                    SocialId = "2",
-                    WormsGroup = new()
-                    {
-                        new()
-                        {
-                            Armor = 2,
-                            Attack = 2,
-                            Experience = 1,
-                            Level = 3,
-                            OwnerId = 2,
-                            SocialOwnerId = "2"
-                        }
-                    }
-                }
-            },
+            UserProfileStructures = new(),
             BossAvailable = true,
             BattlesCount = 1337,
-            CurrentMission = 1
+            CurrentMission = 0
         };
 
         byte[] response = new byte[BinaryCommandHeader.HeaderSize + arena.GetSize()];

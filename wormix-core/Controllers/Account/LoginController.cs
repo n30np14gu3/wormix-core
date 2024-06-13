@@ -46,18 +46,18 @@ public class LoginController : GameControllerBehavior
                     {
                         OwnerId = 1,
                         SocialOwnerId = "1",
-                        Armor = 3,
-                        Attack = 3,
-                        Experience = 10,
-                        Level = 3,
-                        Hat = 6
+                        Armor = 4,
+                        Attack = 4,
+                        Experience = 4,
+                        Level = 4,
+                        Hat = 0
                     }
                 },
                 WeaponRecordList = new()
                 {
                     new() { Id = 1, Count = -1 },
                     new() { Id = 2, Count = -1 },
-                    new() { Id = 3, Count = -1 },
+                    new() { Id = 4, Count = -1 },
                 }
             },
             AvailableSearchKeys = 0,
@@ -72,10 +72,10 @@ public class LoginController : GameControllerBehavior
             },
             BonusDaysStructure = new BonusDaysStructure
             {
-                BattlesCount = 1,
+                BattlesCount = 0,
                 BonusMessage = "",
-                RealMoney = 1,
-                Money = 1
+                RealMoney = 0,
+                Money = 0
             },
             SessionKey = "session_key",
         };

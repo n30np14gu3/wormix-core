@@ -11,6 +11,9 @@ abstract class Program
     {
         MainServer mainServer;
         DomainPolicyServer policyServer;
+        AchievementServer achievementServer;
+        PvpServer pvpServer;
+        
         GuiProcessor gui = new();
         
         if (argv.Length < 1)
@@ -68,6 +71,22 @@ abstract class Program
                             Console.WriteLine($"Starting main server at {serverAddress}:{server.Value.Port}");
                             mainServer = new MainServer(serverAddress, server.Value.Port);
                             mainServer.Start();
+                        }
+                        break;
+                        case "pvp":
+                        if (server.Value.Enabled)
+                        {
+                            Console.WriteLine($"Starting PvP server at {serverAddress}:{server.Value.Port}");
+                            pvpServer = new PvpServer(serverAddress, server.Value.Port);
+                            pvpServer.Start();
+                        }
+                        break;
+                    case "achieve":
+                        if (server.Value.Enabled)
+                        {
+                            Console.WriteLine($"Starting Achievement server at {serverAddress}:{server.Value.Port}");
+                            achievementServer = new AchievementServer(serverAddress, server.Value.Port);
+                            achievementServer.Start();
                         }
                         break;
                 }

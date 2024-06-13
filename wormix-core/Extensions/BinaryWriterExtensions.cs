@@ -7,7 +7,7 @@ public static class BinaryWriterExtensions
 {
     public static void WriteUTF8(this BinaryWriter bw, string str)
     {
-        bw.WriteUInt16Be((ushort)str.Length);
+        bw.WriteUInt16Be((ushort)Encoding.UTF8.GetBytes(str).Length);
         if(str.Length != 0)
             bw.Write(Encoding.UTF8.GetBytes(str));
     }
