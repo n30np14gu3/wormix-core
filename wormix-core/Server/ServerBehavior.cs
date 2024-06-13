@@ -6,8 +6,6 @@ namespace wormix_core.Server;
 public abstract class ServerBehavior(IPAddress ip, int port)
 {
     private TcpListener _listener = new TcpListener(ip, port);
-    private List<Task> _clients = new();
-    
     private bool _isRunning;
     
     public async void Start()
@@ -18,11 +16,13 @@ public abstract class ServerBehavior(IPAddress ip, int port)
         {
             var client = await _listener.AcceptTcpClientAsync();
             OnConnect(client);
-            _clients.Add(new Task(() =>
+            Task task = new Task(() =>
             {
-                while (_isRunning) Process(client);
-            }));
-            _clients.Last().Start();
+                Process(client);
+                OnClose(client);
+            });
+            task.Start();
+
         }
     }
 
@@ -31,7 +31,10 @@ public abstract class ServerBehavior(IPAddress ip, int port)
         _isRunning = false;
         _listener.Stop();
     }
-
+    
     protected abstract void OnConnect(TcpClient newClient);
+
+    protected abstract void OnClose(TcpClient client);
+    
     protected abstract void Process(TcpClient client);
 }

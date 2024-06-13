@@ -34,7 +34,6 @@ public class LoginController : GameControllerBehavior
         {
             UserProfileStructure = new UserProfileStructure
             {
-                
                 Id = 1,
                 Money = 133700,
                 Rating = 2337,
@@ -47,11 +46,11 @@ public class LoginController : GameControllerBehavior
                     {
                         OwnerId = 1,
                         SocialOwnerId = "1",
-                        Armor = 1,
-                        Attack = 1,
-                        Experience = 1,
-                        Level = 10,
-                        Hat = 3
+                        Armor = 3,
+                        Attack = 3,
+                        Experience = 10,
+                        Level = 3,
+                        Hat = 6
                     }
                 },
                 WeaponRecordList = new()
@@ -88,15 +87,8 @@ public class LoginController : GameControllerBehavior
             EnterSerializer.SerializeCommand(enter, ms);
         }
         
-        
         Console.WriteLine($"Sending:\n{HexDump.HexDump.Format(response)}");
-
-        //Client?.Client.Send(File.ReadAllBytes(@"C:\Users\shockbyte\Desktop\EnterAccount.bin"));
+        
         Client?.Client.Send(response);
-    }
-
-    public override string GetControllerName()
-    {
-        return "LoginController";
     }
 }

@@ -39,10 +39,10 @@ public class ArenaController : GameControllerBehavior
                     {
                         new()
                         {
-                            Armor = 10,
-                            Attack = 10,
+                            Armor = 2,
+                            Attack = 2,
                             Experience = 1,
-                            Level = 11,
+                            Level = 3,
                             OwnerId = 2,
                             SocialOwnerId = "2"
                         }
@@ -62,10 +62,5 @@ public class ArenaController : GameControllerBehavior
         }
 
         Client?.Client.Send(response);
-    }
-
-    public override string GetControllerName()
-    {
-        return "ArenaController";
     }
 }

@@ -24,7 +24,7 @@ public class BattleController : GameControllerBehavior
 
         StartBattleResult result = new()
         {
-            BattleId = 1488
+            BattleId = 1020
         };
 
         byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize() + 16];
@@ -35,10 +35,5 @@ public class BattleController : GameControllerBehavior
         }
 
         Client?.Client.Send(response);
-    }
-
-    public override string GetControllerName()
-    {
-        return "BattleController";
     }
 }

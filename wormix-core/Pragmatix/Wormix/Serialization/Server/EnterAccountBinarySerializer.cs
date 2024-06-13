@@ -31,7 +31,7 @@ public class EnterAccountBinarySerializer : ICommandSerializer
             output.Write(hash);
         }
         else
-            throw new InvalidCastException("Invalid EnterAccountStruct");
+            throw new InvalidCastException("Invalid EnterAccount struct");
     }
 
     public object DeserializeCommand(Stream input, ICommandHeader header)

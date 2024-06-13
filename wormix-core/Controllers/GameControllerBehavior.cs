@@ -19,6 +19,4 @@ public abstract class GameControllerBehavior()
     }
 
     protected abstract void Process();
-    
-    public abstract string GetControllerName();
 }

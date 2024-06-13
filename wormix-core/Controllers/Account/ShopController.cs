@@ -32,15 +32,7 @@ public class ShopController : GameControllerBehavior
         {
             //TODO: store to DB
             ShopResult result = new();
-            items.ShopItems.ForEach((x) =>
-            {
-                result.Weapons.Add(new()
-                {
-                    Count = x.Count,
-                    Id = x.Id,
-                    MoneyType = x.MoneyType
-                });
-            });
+            result.Weapons = items.ShopItems;
             result.Result = ShopResult.Success;
 
             byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize() + 16 /*MD5 Sum*/];
@@ -54,10 +46,5 @@ public class ShopController : GameControllerBehavior
             
             Client?.Client.Send(response);
         }
-    }
-
-    public override string GetControllerName()
-    {
-        return "ShopController";
     }
 }

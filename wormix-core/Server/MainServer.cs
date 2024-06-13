@@ -24,7 +24,34 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
         Console.WriteLine("New client connected");
     }
 
+    protected override void OnClose(TcpClient client)
+    {
+        Console.WriteLine("Client disconnected");
+    }
+
     protected override void Process(TcpClient client)
+    {
+        //Мне кажется это костыль
+        while (true)
+        {
+            try
+            {
+                if (client.Client.Poll(0, SelectMode.SelectRead))
+                    continue;
+                
+                byte[] peakByte = new byte[1];
+                if (client.Client.Receive(peakByte, SocketFlags.Peek) == 0)
+                    break;
+            }
+            catch
+            {
+                break;
+            }
+            HandleMessage(client);
+        }
+    }
+
+    private void HandleMessage(TcpClient client)
     {
         if(client.Available == 0)
             return;
@@ -46,14 +73,9 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
             }
             
             if (_controllers.ContainsKey(cmd.GetCommandId()))
-            {
-                Console.WriteLine($"Processing via {_controllers[cmd.GetCommandId()].GetControllerName()}");
                 _controllers[cmd.GetCommandId()].Handle(data, client, cmd);
-            }
             else
-            {
                 Console.WriteLine("Unknown CMD ID");
-            }
                 
         }
         catch (ArgumentException ex)
@@ -63,6 +85,9 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
         catch (Exception ex)
         {
             Console.WriteLine($"Unknown error: {ex.Message}");
+            Console.WriteLine("Closing client connection");
+            if(client.Connected)
+                client.Close();
         }
     }
 }

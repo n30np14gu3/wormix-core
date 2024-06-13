@@ -18,9 +18,4 @@ public class PingController : GameControllerBehavior
         //Sending PONG
         Client?.Client.Send(response);
     }
-
-    public override string GetControllerName()
-    {
-        return "PingController";
-    }
 }

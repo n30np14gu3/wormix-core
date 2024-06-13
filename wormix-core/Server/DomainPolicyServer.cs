@@ -16,6 +16,11 @@ public class DomainPolicyServer(IPAddress ip, int port) : ServerBehavior(ip, por
         Console.WriteLine("Sending policy");
     }
 
+    protected override void OnClose(TcpClient client)
+    {
+        Console.WriteLine("Closed");
+    }
+
     protected override void Process(TcpClient client)
     {
         if (client?.Client != null)
