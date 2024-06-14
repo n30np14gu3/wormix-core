@@ -1,6 +1,6 @@
 # WORMIX SERVER
 
-> Local server for wormix v1.04.0 (2012)
+> Local server for wormix v1.05.0 (2012)
 
 Created by [@shockbyte](https://t.me/shockbyte)
 
