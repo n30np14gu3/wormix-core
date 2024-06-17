@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using wormix_core.Server.Processors;
 
 namespace wormix_core.Server;
 
@@ -15,9 +16,9 @@ public abstract class ServerBehavior(IPAddress ip, int port)
         while (_isRunning)
         {
             var client = await _listener.AcceptTcpClientAsync();
-            OnConnect(client);
-            Task task = new Task(() =>
+            Thread task = new Thread(() =>
             {
+                OnConnect(client);
                 Process(client);
                 OnClose(client);
             });
@@ -31,10 +32,8 @@ public abstract class ServerBehavior(IPAddress ip, int port)
         _isRunning = false;
         _listener.Stop();
     }
-    
-    protected abstract void OnConnect(TcpClient newClient);
 
-    protected abstract void OnClose(TcpClient client);
-    
+    protected abstract void OnConnect(TcpClient client);
     protected abstract void Process(TcpClient client);
+    protected abstract void OnClose(TcpClient client);
 }

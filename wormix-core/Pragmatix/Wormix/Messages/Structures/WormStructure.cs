@@ -13,7 +13,7 @@ public struct WormStructure : IMessage, ISerializable
     public uint Level;
     public uint Experience;
 
-    public uint Hat;
+    public short Hat;
     public uint GetSize()
     {
         return

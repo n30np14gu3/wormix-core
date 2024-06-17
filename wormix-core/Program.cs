@@ -7,13 +7,21 @@ namespace wormix_core;
 
 abstract class Program
 {
+    /// <summary>
+    /// Main entry point
+    /// </summary>
+    /// <param name="argv">argv[0] - path to json config</param>
     static void Main(string[] argv)
     {
+        //Base servers
         MainServer mainServer;
         DomainPolicyServer policyServer;
         AchievementServer achievementServer;
         PvpServer pvpServer;
+        ClanServer clanServer;
         
+        
+        //Gui processor
         GuiProcessor gui = new();
         
         if (argv.Length < 1)
@@ -40,6 +48,7 @@ abstract class Program
         catch (Exception ex)
         {
             Console.WriteLine($"Parsing error: {ex.Message}");
+            return;
         }
 
         if (config == null)
@@ -87,6 +96,14 @@ abstract class Program
                             Console.WriteLine($"Starting Achievement server at {serverAddress}:{server.Value.Port}");
                             achievementServer = new AchievementServer(serverAddress, server.Value.Port);
                             achievementServer.Start();
+                        }
+                        break;
+                    case "clan":
+                        if (server.Value.Enabled)
+                        {
+                            Console.WriteLine($"Starting Clan server at {serverAddress}:{server.Value.Port}");
+                            clanServer = new ClanServer(serverAddress, server.Value.Port);
+                            clanServer.Start();
                         }
                         break;
                 }

@@ -35,10 +35,10 @@ public class LoginController : GameControllerBehavior
             UserProfileStructure = new UserProfileStructure
             {
                 Id = 1,
-                Money = 133700,
-                Rating = 2337,
-                ReactionRate = 3337,
-                RealMoney = 433700,
+                Money = 100000 + 1000,
+                Rating = 1,
+                ReactionRate = 0,
+                RealMoney = 10000 + 1,
                 SocialId = "1",
                 WormsGroup = new List<WormStructure>
                 {
@@ -46,11 +46,11 @@ public class LoginController : GameControllerBehavior
                     {
                         OwnerId = 1,
                         SocialOwnerId = "1",
-                        Armor = 4,
-                        Attack = 4,
+                        Armor = 30,
+                        Attack = 30,
                         Experience = 4,
-                        Level = 4,
-                        Hat = 0
+                        Level = 30,
+                        Hat = 3,
                     }
                 },
                 WeaponRecordList = new()
@@ -58,12 +58,16 @@ public class LoginController : GameControllerBehavior
                     new() { Id = 1, Count = -1 },
                     new() { Id = 2, Count = -1 },
                     new() { Id = 4, Count = -1 },
-                }
+                    new() { Id = 14, Count = -1 },
+                    new() { Id = 64, Count = -1 },
+                    new() { Id = 70, Count = -1 },
+                },
+                Stuff = new List<ushort>() { 4 }
             },
             AvailableSearchKeys = 0,
             Friends = 0,
             OnlineFriends = 0,
-            IsBonusDay = false,
+            IsBonusDay = true,
             DailyBonusStructure = new DailyBonusStructure
             {
                 DailyBonusType = 0,
@@ -73,9 +77,9 @@ public class LoginController : GameControllerBehavior
             BonusDaysStructure = new BonusDaysStructure
             {
                 BattlesCount = 0,
-                BonusMessage = "",
-                RealMoney = 0,
-                Money = 0
+                BonusMessage = "Пора в бой",
+                RealMoney = 10,
+                Money = 1000
             },
             SessionKey = "session_key",
         };
@@ -90,5 +94,9 @@ public class LoginController : GameControllerBehavior
         Console.WriteLine($"Sending:\n{HexDump.HexDump.Format(response)}");
         
         Client?.Client.Send(response);
+        
+        //If login error or banned - sleep & close connection 
+        //Thread.Sleep(5000);
+        //Client?.Close();
     }
 }

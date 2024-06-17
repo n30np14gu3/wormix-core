@@ -12,8 +12,8 @@ public struct ShopResult() : IMessage, ISerializable
     public const int ConfirmFailure = 4;
 
     public int Result = 4;
-    public List<ShopItemStructure> Weapons = new();
-    public List<ShopItemStructure> Stuff = new();
+    public List<WeaponStructure> Weapons = new();
+    public List<short> Stuff = new();
     
     
     public uint GetSize()
@@ -40,10 +40,6 @@ public struct ShopResult() : IMessage, ISerializable
         });
         
         bw.WriteUInt16Be((ushort)Stuff.Count);
-        Stuff.ForEach((x) =>
-        {
-            bw.WriteUInt16Be((ushort)x.GetSize());
-            x.Serialize(output);
-        });
+        Stuff.ForEach((x) =>  bw.WriteUInt16Be((ushort)x));
     }
 }

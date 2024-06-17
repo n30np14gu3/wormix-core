@@ -6,6 +6,7 @@
         <RootNamespace>wormix_core</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Company>shockbyte</Company>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,6 +14,11 @@
       <PackageReference Include="HexDump" Version="1.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Drivers\Http\" />
+      <Folder Include="Providers\" />
     </ItemGroup>
 
 </Project>

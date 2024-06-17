@@ -26,6 +26,7 @@ public class BattleController : GameControllerBehavior
         {
             BattleId = 1020
         };
+        
 
         byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize() + 16];
         using (MemoryStream ms = new MemoryStream(response))
