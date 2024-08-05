@@ -81,7 +81,7 @@ public class LoginController : GameControllerBehavior
             enterSerializer.SerializeCommand(enter, ms);
         }
         Console.WriteLine($"Sending:\n{HexDump.HexDump.Format(response)}");
-        Client?.Client.Send(response);
+        Client?.SessionClient?.Client.Send(response);
         
         //If login error or banned - sleep & close connection 
         //Thread.Sleep(5000);

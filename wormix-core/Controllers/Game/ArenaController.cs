@@ -38,6 +38,6 @@ public class ArenaController : GameControllerBehavior
             serializer.SerializeCommand(arena, ms);
         }
 
-        Client?.Client.Send(response);
+        Client?.SessionClient?.Client.Send(response);
     }
 }

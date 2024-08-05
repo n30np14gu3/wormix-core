@@ -48,8 +48,7 @@ public class ShopController : GameControllerBehavior
             }
 
             Console.WriteLine($"Add new {result.Weapons.Count} items");
-            Client?.Client.Send(response);
-
+            Client?.SessionClient?.Client.Send(response);
         }
     }
 }
