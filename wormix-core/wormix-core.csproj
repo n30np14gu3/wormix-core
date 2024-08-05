@@ -20,6 +20,7 @@
       <Folder Include="Broadcast\" />
       <Folder Include="Drivers\Http\" />
       <Folder Include="Providers\" />
+      <Folder Include="Server\" />
     </ItemGroup>
 
 </Project>
