@@ -1,5 +1,6 @@
 ﻿{
   "local": true,
+  
   "servers": {
     "policy": {
       "port": 843,
@@ -23,11 +24,9 @@
     }
   },
   
-  "driver": "http",
+  "provider": "http",
   
-  "drivers": {
-    "http": {
-      "url": "http://127.0.0.1:8000/api/"
-    }
-  } 
+  "http": {
+    "url": "http://127.0.0.1/api/"
+  }
 }
