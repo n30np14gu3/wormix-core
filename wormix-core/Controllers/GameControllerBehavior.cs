@@ -8,9 +8,8 @@ public abstract class GameControllerBehavior()
     protected byte[]? DataPayload;
     protected TcpClient? Client;
     protected ICommandHeader? Header;
-    protected string SessionId;
-
-    public void Handle(byte[] payload, TcpClient client, ICommandHeader header, string sessionId = "")
+    
+    public void Handle(byte[] payload, TcpClient client, ICommandHeader header)
     {
         DataPayload = payload;
         Client = client;

@@ -26,9 +26,9 @@ public class ArenaController : GameControllerBehavior
         ArenaResult arena = new()
         {
             UserProfileStructures = new(),
-            BossAvailable = true,
+            BossAvailable = false,
             BattlesCount = 1337,
-            CurrentMission = 20
+            CurrentMission = -3
         };
 
         byte[] response = new byte[BinaryCommandHeader.HeaderSize + arena.GetSize()];

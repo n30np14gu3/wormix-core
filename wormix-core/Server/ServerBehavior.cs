@@ -8,6 +8,8 @@ public abstract class ServerBehavior(IPAddress ip, int port)
 {
     private TcpListener _listener = new TcpListener(ip, port);
     private bool _isRunning;
+
+    protected Dictionary<string, TcpClient> _clients = new();
     
     public async void Start()
     {
@@ -16,14 +18,13 @@ public abstract class ServerBehavior(IPAddress ip, int port)
         while (_isRunning)
         {
             var client = await _listener.AcceptTcpClientAsync();
+            OnConnect(client);
             Thread task = new Thread(() =>
             {
-                OnConnect(client);
                 Process(client);
                 OnClose(client);
             });
             task.Start();
-
         }
     }
 
@@ -36,4 +37,5 @@ public abstract class ServerBehavior(IPAddress ip, int port)
     protected abstract void OnConnect(TcpClient client);
     protected abstract void Process(TcpClient client);
     protected abstract void OnClose(TcpClient client);
+    
 }

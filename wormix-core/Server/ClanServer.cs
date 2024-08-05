@@ -3,6 +3,11 @@ using System.Net.Sockets;
 
 namespace wormix_core.Server;
 
+/// <summary>
+/// Clans don't exists in this old version
+/// </summary>
+/// <param name="ip"></param>
+/// <param name="port"></param>
 public class ClanServer(IPAddress ip, int port) : ServerBehavior(ip, port)
 {
     protected override void OnConnect(TcpClient newClient)

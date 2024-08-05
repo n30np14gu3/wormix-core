@@ -25,7 +25,11 @@ public class DomainPolicyServer(IPAddress ip, int port) : ServerBehavior(ip, por
     {
         if (client?.Client != null)
         {
+            byte[] policy = new byte[client.Available];
+            client.Client.Receive(policy);
+            Console.WriteLine($"Policy request:\n{HexDump.HexDump.Format(policy)}");
             client.Client.Send(Encoding.UTF8.GetBytes(_defaultPolicy));
+            Thread.Sleep(1000);
             client.Close(); //Close after sending
         }
     }

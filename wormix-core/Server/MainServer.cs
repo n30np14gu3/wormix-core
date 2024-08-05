@@ -90,4 +90,13 @@ public class MainServer(IPAddress ip, int port) : ServerBehavior(ip, port)
                 client.Close();
         }
     }
+    
+    protected void NewAuth(string key, TcpClient client)
+    {
+        if (!_clients.TryAdd(key, client))
+        {
+            _clients[key].Close();
+            _clients[key] = client;
+        }
+    }
 }
