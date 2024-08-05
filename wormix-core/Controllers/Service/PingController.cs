@@ -16,6 +16,6 @@ public class PingController : GameControllerBehavior
         }
         
         //Sending PONG
-        Client?.Client.Send(response);
+        Client?.SessionClient?.Client.Send(response);
     }
 }

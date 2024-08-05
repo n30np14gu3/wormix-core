@@ -35,6 +35,6 @@ public class BattleController : GameControllerBehavior
             serializer.SerializeCommand(result, ms);
         }
 
-        Client?.Client.Send(response);
+        Client?.SessionClient?.Client.Send(response);
     }
 }
