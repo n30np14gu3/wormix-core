@@ -19,4 +19,9 @@ public struct Login() : IMessage
             + 1 // SocialCode
         );
     }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }

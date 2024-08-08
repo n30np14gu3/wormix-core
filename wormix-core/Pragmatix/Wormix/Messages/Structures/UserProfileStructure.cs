@@ -2,7 +2,7 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct UserProfileStructure() : IMessage, ISerializable
+public struct UserProfileStructure() : IMessage
 {
     public uint Id;
     public string SocialId;

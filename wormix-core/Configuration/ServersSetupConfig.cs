@@ -7,5 +7,5 @@ public class ServersSetupConfig
     
     public Dictionary<string, ServerConfig> Servers = new();
     
-    public string Provider = String.Empty;
+    public string? ApiUrl;
 }

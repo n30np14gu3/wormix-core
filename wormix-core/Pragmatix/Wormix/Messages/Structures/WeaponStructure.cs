@@ -2,7 +2,7 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct WeaponStructure(uint id = 0, int count = 0) : IMessage, ISerializable
+public struct WeaponStructure(uint id = 0, int count = 0) : IMessage
 {
     public uint Id = id;
     public int Count = count;

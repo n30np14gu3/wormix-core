@@ -1,4 +1,6 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+﻿using wormix_core.Extensions;
+
+namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
 public struct UserIsBanned : IMessage
 {
@@ -10,5 +12,12 @@ public struct UserIsBanned : IMessage
         return
             4 //Reason
             + 4; //EndDate
+    }
+
+    public void Serialize(Stream output)
+    {
+        BinaryWriter bw = new BinaryWriter(output);
+        bw.WriteUInt32Be((uint)Reason);
+        bw.WriteUInt32Be(EndDate);
     }
 }

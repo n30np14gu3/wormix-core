@@ -3,7 +3,7 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct StartBattleResult() : IMessage, ISerializable
+public struct StartBattleResult() : IMessage
 {
     public List<WeaponStructure> Awards = new();
     public uint BattleId;

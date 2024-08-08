@@ -1,7 +1,7 @@
-﻿using wormix_core.Pragmatix.Flox.Serialization.Internals;
+﻿using wormix_core.Controllers.Account;
+using wormix_core.Pragmatix.Flox.Serialization.Internals;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
-using wormix_core.Pragmatix.Wormix.Messages.Structures;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
@@ -31,14 +31,8 @@ public class ShopHandler : GameMessageHandler
 
         if (items.ShopItems.Count != 0)
         {
-            ShopResult result = new();
-            items.ShopItems.ForEach((x) => result.Weapons.Add(new WeaponStructure()
-            {
-                Id = x.Id,
-                Count = x.Count
-            }));
-            result.Result = ShopResult.Success;
-
+            ShopResult result = (ShopResult)new ShopController().ProcessMessage(items, Client);
+            
             byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize() + 16 /*MD5 Sum*/];
             using (MemoryStream ms = new MemoryStream(response))
             {

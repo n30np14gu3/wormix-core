@@ -25,8 +25,15 @@ public class TcpSession
     /// </summary>
     private readonly Thread _sessionThread;
 
+
+    /// <summary>
+    /// Session auth token
+    /// </summary>
+    private string _token;
+
     public TcpSession(TcpServer server)
     {
+        _token = string.Empty;
         Server = server;
         _sessionThread = new Thread(MessageLoop);
     }
@@ -49,6 +56,11 @@ public class TcpSession
             _sessionThread.Interrupt();
         OnDisconnected();
     }
+
+    public string GetToken() => _token;
+
+    public string SetToken(string token) => _token = token;
+    
 
     public void SendMessage(byte[] message)
     {

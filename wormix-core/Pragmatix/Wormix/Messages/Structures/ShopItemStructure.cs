@@ -2,7 +2,7 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct ShopItemStructure() : IMessage, ISerializable
+public struct ShopItemStructure() : IMessage
 {
     public const int RealMoney = 0;
     public const int Money = 1;

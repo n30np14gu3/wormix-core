@@ -3,7 +3,7 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct ShopResult() : IMessage, ISerializable
+public struct ShopResult() : IMessage
 {
     public const int Success = 0;
     public const int Error = 1;

@@ -3,7 +3,7 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Client;
 
-public struct BuyShopItems() : IMessage, ISerializable
+public struct BuyShopItems() : IMessage
 {
     public List<ShopItemStructure> ShopItems = new();
     

@@ -3,7 +3,7 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct EnterAccount() : IMessage, ISerializable
+public struct EnterAccount() : IMessage
 {
     public UserProfileStructure UserProfileStructure = new();
     public List<UserProfileStructure> UserProfileStructures = new();

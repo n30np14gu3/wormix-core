@@ -2,7 +2,7 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct WormStructure : IMessage, ISerializable
+public struct WormStructure : IMessage
 {
     public uint OwnerId;
     public string SocialOwnerId;

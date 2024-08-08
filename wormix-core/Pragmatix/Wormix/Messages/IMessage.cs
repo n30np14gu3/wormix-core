@@ -3,4 +3,5 @@
 public interface IMessage
 {
     uint GetSize();
+    void Serialize(Stream output);
 }

@@ -3,7 +3,7 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct ArenaResult() : IMessage, ISerializable
+public struct ArenaResult() : IMessage
 {
     public List<UserProfileStructure> UserProfileStructures = new();
     public int BattlesCount;

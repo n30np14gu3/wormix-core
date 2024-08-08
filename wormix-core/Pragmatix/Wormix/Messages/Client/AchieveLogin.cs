@@ -19,4 +19,9 @@ public struct AchieveLogin : IMessage
                 + 1
                 ); //SendAchievements size
     }
+
+    public void Serialize(Stream output)
+    {
+        //Nothing
+    }
 }

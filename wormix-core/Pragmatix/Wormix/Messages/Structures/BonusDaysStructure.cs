@@ -2,7 +2,7 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct BonusDaysStructure() : IMessage, ISerializable
+public struct BonusDaysStructure() : IMessage
 {
     public int Money;
     public int RealMoney;

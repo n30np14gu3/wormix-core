@@ -60,7 +60,12 @@ abstract class Program
         {
             Console.WriteLine("Starting servers...");
             foreach (var server in parser.GetServers())
-                Console.WriteLine($"Starting {server.Key} server at {server.Value!.EndPoint}");
+            {
+                if(server.Value == null)
+                    continue;
+                Console.WriteLine($"Starting {server.Key} server at {server.Value.EndPoint}");
+                server.Value.Start();
+            }
         }
         catch (Exception ex)
         {

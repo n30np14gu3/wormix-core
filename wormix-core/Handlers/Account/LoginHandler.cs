@@ -1,7 +1,8 @@
-﻿using wormix_core.Pragmatix.Flox.Serialization.Internals;
+﻿using wormix_core.Controllers.Account;
+using wormix_core.Pragmatix.Flox.Serialization.Internals;
+using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
-using wormix_core.Pragmatix.Wormix.Messages.Structures;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
@@ -21,65 +22,39 @@ public class LoginHandler : GameMessageHandler
 
         if (loginData.Id == 0)
             throw new ArgumentException("Invalid login struct");
-        
-        //ISerializable = DataProvider.instance.Request(loginData, serializer.getCommandId());
-        
-        //Sending test Login data
-        EnterAccount enter = new EnterAccount
-        {
-            UserProfileStructure = new UserProfileStructure
-            {
-                Id = 1,
-                Money = 450,
-                Rating = 0,
-                ReactionRate = 0,
-                RealMoney = 3,
-                SocialId = "1",
-                WormsGroup = new List<WormStructure>
-                {
-                    new WormStructure
-                    {
-                        OwnerId = 1,
-                        SocialOwnerId = "1",
-                        Armor = 1,
-                        Attack = 1,
-                        Experience = 0,
-                        Level = 2,
-                        Hat = 0,
-                    }
-                },
-                WeaponRecordList = new()
-                {
-                    new() { Id = 1, Count = -1 },
-                    new() { Id = 2, Count = -1 },
-                    new() { Id = 4, Count = -1 },
-                },
-                Stuff = new()
-            },
-            AvailableSearchKeys = 0,
-            Friends = 0,
-            OnlineFriends = 0,
-            IsBonusDay = false,
-            DailyBonusStructure = new DailyBonusStructure
-            {
-                DailyBonusType = 0,
-                DailyBonusCount = 0,
-                LoginSequence = 0
-            },
-            SessionKey = "session_key",
-        };
 
-        byte[] response = new byte[BinaryCommandHeader.HeaderSize + enter.GetSize() + 16 /*MD5 Sum*/];
-        using (MemoryStream ms = new MemoryStream(response))
+
+        IMessage result = new LoginController().ProcessMessage(loginData, Client);
+        if (result is EnterAccount account) //OK
         {
-            EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
-            enterSerializer.SerializeCommand(enter, ms);
+            Client?.SetToken(account.SessionKey);
+            byte[] response = new byte[BinaryCommandHeader.HeaderSize + account.GetSize() + 16 /*MD5 Sum*/];
+            using (MemoryStream ms = new MemoryStream(response))
+            {
+                EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
+                enterSerializer.SerializeCommand(account, ms);
+            }
+        
+            Client?.SessionClient?.Client.Send(response);
         }
-        
-        Client?.SessionClient?.Client.Send(response);
-        
-        //If login error or banned - sleep & close connection 
-        //Thread.Sleep(5000);
-        //Client?.Close();
+        else //Error
+        {
+            byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize()];
+            
+            using (MemoryStream ms = new MemoryStream(response))
+            {
+                if (result is LoginError)
+                {
+                    LoginErrorBinarySerializer errorBinarySerializer = new LoginErrorBinarySerializer();
+                    errorBinarySerializer.SerializeCommand(result, ms);
+                }
+            }
+            Client?.SessionClient?.Client.Send(response);
+            
+            //If login error or banned - sleep & close connection 
+            Thread.Sleep(5000);
+            Client?.SessionClient?.Close();
+        }
+
     }
 }

@@ -9,12 +9,14 @@ public class ConfigParser
     public void Parse(string configData)
     {
         ServersSetupConfig? config = JsonConvert.DeserializeObject<ServersSetupConfig>(configData);
-        JObject? configJson = JsonConvert.DeserializeObject<JObject>(configData);
-        if (configJson == null)
-            throw new Exception("Can't parse json file (to JObject)");
         if(config == null)
             return;
-            
+
+        if (config.ApiUrl == null || string.IsNullOrWhiteSpace(config.ApiUrl))
+            throw new Exception("ApiUrl is undefined!");
+
+        Config.Url = config.ApiUrl;
+        
         string serverAddress = config.Local ? "127.0.0.1" : "0.0.0.0";
         foreach (var server in config.Servers)
         {
@@ -30,7 +32,9 @@ public class ConfigParser
                     case "policy":
                         return new DomainPolicyServer(serverAddress, server.Value.Port);
                 }
+
                 return null;
+                
             }).Invoke());
         }
     }

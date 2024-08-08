@@ -2,7 +2,7 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct DailyBonusStructure : IMessage, ISerializable
+public struct DailyBonusStructure : IMessage
 {
     public int LoginSequence;
     public int DailyBonusType;
