@@ -8,7 +8,4 @@ public class ServersSetupConfig
     public Dictionary<string, ServerConfig> Servers = new();
     
     public string Provider = String.Empty;
-
-    [NonSerialized]
-    public ProviderProps? Props = null;
 }

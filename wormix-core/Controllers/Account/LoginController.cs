@@ -29,7 +29,9 @@ public class LoginController : GameControllerBehavior
         if (loginData.Id == 0)
             throw new ArgumentException("Invalid login struct");
         
-        //Senging test Login data
+        //ISerializable = DataProvider.instance.Request(loginData, serializer.getCommandId());
+        
+        //Sending test Login data
         EnterAccount enter = new EnterAccount
         {
             UserProfileStructure = new UserProfileStructure

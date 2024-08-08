@@ -14,6 +14,7 @@ abstract class Program
         //Gui processor
         GuiProcessor gui = new();
         
+        
         if (argv.Length < 1)
         {
             Console.WriteLine($"Use {Environment.ProcessPath} <config.json>");
@@ -42,17 +43,28 @@ abstract class Program
         }
 
 
+        //Config parser
+        ConfigParser parser = new();
+        
         try
         {
-            ConfigParser parser = new ConfigParser();
             parser.Parse(configData);
-
-
-            parser.StartServers();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Parsing & setup exception. Error: {ex.Message}");
+            return;
+        }
+
+        try
+        {
+            Console.WriteLine("Starting servers...");
+            foreach (var server in parser.GetServers())
+                Console.WriteLine($"Starting {server.Key} server at {server.Value!.EndPoint}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Starting servers exception. Error: {ex.Message}");
             return;
         }
         
