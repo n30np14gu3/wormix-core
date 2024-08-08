@@ -4,9 +4,9 @@ using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
-namespace wormix_core.Controllers.Game;
+namespace wormix_core.Handlers.Game;
 
-public class BattleController : GameControllerBehavior
+public class BattleHandler : GameMessageHandler
 {
     protected override void Process()
     {

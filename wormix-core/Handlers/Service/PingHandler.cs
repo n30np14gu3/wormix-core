@@ -1,9 +1,9 @@
 ﻿using wormix_core.Pragmatix.Flox.Serialization.Internals;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
-namespace wormix_core.Controllers.Service;
+namespace wormix_core.Handlers.Service;
 
-public class PingController : GameControllerBehavior
+public class PingHandler : GameMessageHandler
 {
     protected override void Process()
     {

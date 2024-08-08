@@ -2,9 +2,9 @@
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Session;
 
-namespace wormix_core.Controllers;
+namespace wormix_core.Handlers;
 
-public abstract class GameControllerBehavior()
+public abstract class GameMessageHandler()
 {
     protected byte[]? DataPayload;
     protected TcpSession? Client;

@@ -5,9 +5,9 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
-namespace wormix_core.Controllers.Game;
+namespace wormix_core.Handlers.Game;
 
-public class ArenaController : GameControllerBehavior
+public class ArenaHandler : GameMessageHandler
 {
     protected override void Process()
     {

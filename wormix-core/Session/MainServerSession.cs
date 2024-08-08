@@ -1,7 +1,7 @@
-﻿using wormix_core.Controllers;
-using wormix_core.Controllers.Account;
-using wormix_core.Controllers.Game;
-using wormix_core.Controllers.Service;
+﻿using wormix_core.Handlers;
+using wormix_core.Handlers.Account;
+using wormix_core.Handlers.Game;
+using wormix_core.Handlers.Service;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
 using wormix_core.Server;
 
@@ -10,13 +10,13 @@ namespace wormix_core.Session;
 public class MainServerSession(TcpServer server) : TcpSession(server)
 {    
     
-    private readonly Dictionary<uint, GameControllerBehavior> _controllers = new()
+    private readonly Dictionary<uint, GameMessageHandler> _controllers = new()
     {
-        {1, new LoginController()},
-        {3, new ShopController()},
-        {4, new ArenaController()},
-        {6, new BattleController()},
-        {16, new PingController()}
+        {1, new LoginHandler()},
+        {3, new ShopHandler()},
+        {4, new ArenaHandler()},
+        {6, new BattleHandler()},
+        {16, new PingHandler()}
     };
     
     protected override void OnMessage(Stream dataStream)

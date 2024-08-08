@@ -5,9 +5,9 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
-namespace wormix_core.Controllers.Account;
+namespace wormix_core.Handlers.Account;
 
-public class LoginController : GameControllerBehavior
+public class LoginHandler : GameMessageHandler
 {
     protected override void Process()
     {
@@ -17,14 +17,7 @@ public class LoginController : GameControllerBehavior
         LoginBinarySerializer serializer = new LoginBinarySerializer();
         Login loginData;
         using (MemoryStream ms = new MemoryStream(DataPayload))
-        {
             loginData = (Login)serializer.DeserializeCommand(ms, Header);
-            Console.WriteLine("New Login request");
-            Console.WriteLine($"ID: {loginData.Id}");
-            Console.WriteLine($"ReferrerId: {loginData.ReferrerId}");
-            Console.WriteLine($"AuthKey: {loginData.AuthKey}");
-            Console.WriteLine($"SocialCode: {loginData.SocialCode}");
-        }
 
         if (loginData.Id == 0)
             throw new ArgumentException("Invalid login struct");
@@ -82,7 +75,7 @@ public class LoginController : GameControllerBehavior
             EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
             enterSerializer.SerializeCommand(enter, ms);
         }
-        Console.WriteLine($"Sending:\n{HexDump.HexDump.Format(response)}");
+        
         Client?.SessionClient?.Client.Send(response);
         
         //If login error or banned - sleep & close connection 

@@ -5,9 +5,9 @@ using wormix_core.Pragmatix.Wormix.Messages.Structures;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
-namespace wormix_core.Controllers.Account;
+namespace wormix_core.Handlers.Account;
 
-public class ShopController : GameControllerBehavior
+public class ShopHandler : GameMessageHandler
 {
     protected override void Process()
     {
@@ -31,7 +31,6 @@ public class ShopController : GameControllerBehavior
 
         if (items.ShopItems.Count != 0)
         {
-            //TODO: store to DB
             ShopResult result = new();
             items.ShopItems.ForEach((x) => result.Weapons.Add(new WeaponStructure()
             {
