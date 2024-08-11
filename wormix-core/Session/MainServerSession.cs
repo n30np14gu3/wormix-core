@@ -16,7 +16,8 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
         {3, new ShopHandler()},
         {4, new ArenaHandler()},
         {6, new BattleHandler()},
-        {16, new PingHandler()}
+        {16, new PingHandler()},
+        {36, new ChangeRaceHandler()}
     };
     
     protected override void OnMessage(Stream dataStream)

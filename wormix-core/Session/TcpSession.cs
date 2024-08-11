@@ -67,6 +67,8 @@ public class TcpSession
         SessionClient?.Client.Send(message);
     }
 
+    public NetworkStream GetStream() => SessionClient?.GetStream()!;
+
     protected virtual void OnConnected()
     {
         
@@ -111,4 +113,6 @@ public class TcpSession
         }
         Server.UnregisterSession(Id);
     }
+
+    public Guid GetSessionId() => Id;
 }

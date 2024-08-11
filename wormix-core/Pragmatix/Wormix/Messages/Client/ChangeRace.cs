@@ -1,10 +1,19 @@
 ﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
 
-public struct ChangeRace(int raceId = 0, int moneyType = 0)
+public struct ChangeRace(byte raceId = 0, byte moneyType = 0) : IMessage
 {
-    public const int RealMoney = 0;
-    public const int Money = 1;
+    public const byte RealMoney = 0;
+    public const byte Money = 1;
 
-    public int RaceId = raceId;
-    public int MoneyType = moneyType;
+    public byte RaceId = raceId;
+    public byte MoneyType = moneyType;
+    public uint GetSize()
+    {
+        return 2;
+    }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }
