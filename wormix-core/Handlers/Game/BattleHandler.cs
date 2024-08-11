@@ -13,7 +13,7 @@ public class BattleHandler : GameMessageHandler
         if(Header == null || DataPayload ==null)
             return;
         
-        StartBattle startBattle = new();
+        StartBattle startBattle;
         using (MemoryStream ms = new MemoryStream(DataPayload))
         {
             StartBattleBinarySerializer startBattleBinarySerializer = new StartBattleBinarySerializer();
@@ -27,14 +27,7 @@ public class BattleHandler : GameMessageHandler
             BattleId = 1020
         };
         
-
-        byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize() + 16];
-        using (MemoryStream ms = new MemoryStream(response))
-        {
-            StartBattleResultBinarySerializer serializer = new StartBattleResultBinarySerializer();
-            serializer.SerializeCommand(result, ms);
-        }
-
-        Client?.SessionClient?.Client.Send(response);
+        StartBattleResultBinarySerializer serializer = new StartBattleResultBinarySerializer();
+        serializer.SerializeCommand(result, Client?.GetStream()!);
     }
 }

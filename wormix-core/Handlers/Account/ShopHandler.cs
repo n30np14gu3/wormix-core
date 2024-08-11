@@ -32,16 +32,10 @@ public class ShopHandler : GameMessageHandler
         if (items.ShopItems.Count != 0)
         {
             ShopResult result = (ShopResult)new ShopController().ProcessMessage(items, Client);
-            
-            byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize() + 16 /*MD5 Sum*/];
-            using (MemoryStream ms = new MemoryStream(response))
-            {
-                ShopResultBinarySerializer serializer = new ShopResultBinarySerializer();
-                serializer.SerializeCommand(result, ms);
-            }
+            ShopResultBinarySerializer serializer = new ShopResultBinarySerializer();
+            serializer.SerializeCommand(result, Client?.GetStream()!);
 
             Console.WriteLine($"Add new {result.Weapons.Count} items");
-            Client?.SessionClient?.Client.Send(response);
         }
     }
 }

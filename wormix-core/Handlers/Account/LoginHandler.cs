@@ -28,32 +28,20 @@ public class LoginHandler : GameMessageHandler
         if (result is EnterAccount account) //OK
         {
             Client?.SetToken(account.SessionKey);
-            byte[] response = new byte[BinaryCommandHeader.HeaderSize + account.GetSize() + 16 /*MD5 Sum*/];
-            using (MemoryStream ms = new MemoryStream(response))
-            {
-                EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
-                enterSerializer.SerializeCommand(account, ms);
-            }
-        
-            Client?.SessionClient?.Client.Send(response);
+            EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
+            enterSerializer.SerializeCommand(account, Client?.GetStream()!);
         }
         else //Error
         {
-            byte[] response = new byte[BinaryCommandHeader.HeaderSize + result.GetSize()];
-            
-            using (MemoryStream ms = new MemoryStream(response))
+            if (result is LoginError)
             {
-                if (result is LoginError)
-                {
-                    LoginErrorBinarySerializer errorBinarySerializer = new LoginErrorBinarySerializer();
-                    errorBinarySerializer.SerializeCommand(result, ms);
-                }
+                LoginErrorBinarySerializer errorBinarySerializer = new LoginErrorBinarySerializer();
+                errorBinarySerializer.SerializeCommand(result, Client?.GetStream()!);
             }
-            Client?.SessionClient?.Client.Send(response);
             
             //If login error or banned - sleep & close connection 
             Thread.Sleep(5000);
-            Client?.SessionClient?.Close();
+            Client?.CloseSession();
         }
 
     }

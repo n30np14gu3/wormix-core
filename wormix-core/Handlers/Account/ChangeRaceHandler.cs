@@ -24,12 +24,8 @@ public class ChangeRaceHandler : GameMessageHandler
         if (cmdData is ChangeRace changeRace)
         {
             IMessage result = new ChangeRaceController().ProcessMessage(changeRace, Client);
-            byte[] resultBuffer = new byte[result.GetSize() + BinaryCommandHeader.HeaderSize];
             ChangeRaceResultBinarySerializer resultSerializer = new ChangeRaceResultBinarySerializer();
-            using (MemoryStream ms = new MemoryStream(resultBuffer))
-                resultSerializer.SerializeCommand(result, ms);
-            
-            Client?.SessionClient?.Client.Send(resultBuffer);
+            resultSerializer.SerializeCommand(result, Client?.GetStream()!);
         }
     }
 }

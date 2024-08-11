@@ -13,7 +13,7 @@ public class TcpSession
     /// <summary>
     /// Current TcpClient
     /// </summary>
-    public TcpClient? SessionClient { get; protected set; }
+    protected TcpClient? SessionClient { get; private set; }
     
     /// <summary>
     /// Session ID
@@ -47,6 +47,11 @@ public class TcpSession
     public void StartSession()
     {
         _sessionThread.Start();
+    }
+
+    public void CloseSession()
+    {
+        SessionClient?.Client.Close();
     }
 
     public void StopSession()

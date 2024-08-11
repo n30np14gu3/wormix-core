@@ -30,14 +30,8 @@ public class ArenaHandler : GameMessageHandler
             BattlesCount = 1337,
             CurrentMission = -3
         };
-
-        byte[] response = new byte[BinaryCommandHeader.HeaderSize + arena.GetSize()];
-        using (MemoryStream ms = new MemoryStream(response))
-        {
-            ArenaResultBinarySerializer serializer = new ArenaResultBinarySerializer();
-            serializer.SerializeCommand(arena, ms);
-        }
-
-        Client?.SessionClient?.Client.Send(response);
+        
+        ArenaResultBinarySerializer serializer = new ArenaResultBinarySerializer();
+        serializer.SerializeCommand(arena, Client?.GetStream()!);
     }
 }
