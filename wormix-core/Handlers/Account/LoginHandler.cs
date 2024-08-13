@@ -1,4 +1,5 @@
-﻿using wormix_core.Controllers.Account;
+﻿using wormix_core.Controllers;
+using wormix_core.Controllers.Account;
 using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
@@ -7,6 +8,7 @@ using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
 namespace wormix_core.Handlers.Account;
 
+[ControlledBy(typeof(LoginController))]
 public class LoginHandler : GameMessageHandler
 {
     protected override void Process()
@@ -23,7 +25,7 @@ public class LoginHandler : GameMessageHandler
             throw new ArgumentException("Invalid login struct");
 
 
-        IMessage result = new LoginController().ProcessMessage(loginData, Client);
+        IMessage result = MessageController!.ProcessMessage(loginData, Client);
         if (result is EnterAccount account) //OK
         {
             Client?.SetToken(account.SessionKey);

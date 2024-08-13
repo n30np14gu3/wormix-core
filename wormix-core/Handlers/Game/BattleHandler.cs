@@ -1,4 +1,5 @@
-﻿using wormix_core.Controllers.Game;
+﻿using wormix_core.Controllers;
+using wormix_core.Controllers.Game;
 using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
@@ -6,6 +7,7 @@ using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
 namespace wormix_core.Handlers.Game;
 
+[ControlledBy(typeof(StartBattleController))]
 public class BattleHandler : GameMessageHandler
 {
     protected override void Process()
@@ -20,7 +22,7 @@ public class BattleHandler : GameMessageHandler
             startBattle = (StartBattle)startBattleBinarySerializer.DeserializeCommand(ms, Header);
         }
 
-        IMessage result = new StartBattleController().ProcessMessage(startBattle, Client);
+        IMessage result = MessageController!.ProcessMessage(startBattle, Client);
         StartBattleResultBinarySerializer serializer = new StartBattleResultBinarySerializer();
         serializer.SerializeCommand(result, Client?.GetStream()!);
     }
