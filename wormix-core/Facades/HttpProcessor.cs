@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 using wormix_core.Extensions;
-using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Session;
 
 namespace wormix_core.Facades;
@@ -10,7 +10,7 @@ public class HttpProcessor
 {
     public static JToken PostRequest(
         string url, 
-        IMessage request,
+        ISerializable request,
         TcpSession? session
         )
     {

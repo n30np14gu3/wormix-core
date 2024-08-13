@@ -1,6 +1,6 @@
 ﻿using wormix_core.Controllers;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
-using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
@@ -15,7 +15,7 @@ public class SelectStuffHandler(ICommandSerializer requestSerializer, IGameContr
     {
         if (requestMessage is SelectStuff selectStuffRequest)
         {
-            IMessage response = MessageController.ProcessMessage(selectStuffRequest, Client);
+            ISerializable response = MessageController.ProcessMessage(selectStuffRequest, Client);
             if (response is SelectStuffResult result)
                 new SelectStuffResultBinarySerializer().SerializeCommand(result, Client.GetStream());
         }

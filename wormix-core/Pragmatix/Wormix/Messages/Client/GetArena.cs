@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct GetArena : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct GetArena : ISerializable
 {
     public bool ReturnUsersProfiles;
 

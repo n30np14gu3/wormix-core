@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct ChangeRace(byte raceId = 0, byte moneyType = 0) : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct ChangeRace(byte raceId = 0, byte moneyType = 0) : ISerializable
 {
     public const byte RealMoney = 0;
     public const byte Money = 1;

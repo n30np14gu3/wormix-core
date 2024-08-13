@@ -1,5 +1,5 @@
 ﻿using wormix_core.Facades;
-using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
@@ -7,9 +7,9 @@ namespace wormix_core.Controllers.Account;
 
 public class ChangeRaceController : IGameController
 {
-    public IMessage ProcessMessage(IMessage gameMessage, TcpSession? session)
+    public ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
-        JObject result = HttpProcessor.PostRequest($"{Config.Url}{GetRoute()}", gameMessage, session).ToObject<JObject>()!;
+        JObject result = HttpProcessor.PostRequest($"{Config.Url}{GetRoute()}", gameSerializable, session).ToObject<JObject>()!;
         return result["data"]!.ToObject<ChangeRaceResult>();
     }
 

@@ -2,6 +2,7 @@
 using wormix_core.Pragmatix.Flox.Secure;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Client;
 
@@ -12,12 +13,12 @@ public class LoginBinarySerializer : ICommandSerializer
         return 1;
     }
 
-    public void SerializeCommand(object command, Stream output)
+    public void SerializeCommand(ISerializable command, Stream output)
     {
         //Not needed
     }
 
-    public object DeserializeCommand(Stream input, ICommandHeader header)
+    public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
         byte[] loginPayload = new byte[header.GetLength()];
         var readed = input.Read(loginPayload);

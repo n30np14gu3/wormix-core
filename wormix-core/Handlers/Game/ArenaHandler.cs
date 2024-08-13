@@ -1,6 +1,6 @@
 ﻿using wormix_core.Controllers;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
-using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
@@ -18,7 +18,7 @@ public class ArenaHandler(ICommandSerializer requestSerializer, IGameController 
             Console.WriteLine("New arena request");
             Console.WriteLine($"Get profiles: {arenaRequest.ReturnUsersProfiles}");
             
-            IMessage arena = MessageController.ProcessMessage(arenaRequest, Client);
+            ISerializable arena = MessageController.ProcessMessage(arenaRequest, Client);
             ICommandSerializer? serializer = null;
         
             if (arena is ArenaResult)

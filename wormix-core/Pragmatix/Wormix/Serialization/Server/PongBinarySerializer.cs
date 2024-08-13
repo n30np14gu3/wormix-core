@@ -1,5 +1,6 @@
 ﻿using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Server;
 
@@ -10,7 +11,7 @@ public class PongBinarySerializer : ICommandSerializer
         return 10017;
     }
 
-    public void SerializeCommand(object command, Stream output)
+    public void SerializeCommand(ISerializable command, Stream output)
     {
         //Not needed Pong cmd
         BinaryCommandHeader header = new BinaryCommandHeader();
@@ -19,7 +20,7 @@ public class PongBinarySerializer : ICommandSerializer
         header.Write(output);
     }
 
-    public object DeserializeCommand(Stream input, ICommandHeader header)
+    public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
         //Not needed
         return null!;

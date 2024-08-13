@@ -2,6 +2,7 @@
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Client;
 
@@ -12,7 +13,7 @@ public class AchieveLoginBinarySerializer : ICommandSerializer
         return 3001;
     }
 
-    public void SerializeCommand(object command, Stream output)
+    public void SerializeCommand(ISerializable command, Stream output)
     {
         if (command is AchieveLogin achieveLogin)
         {
@@ -42,7 +43,7 @@ public class AchieveLoginBinarySerializer : ICommandSerializer
             throw new InvalidCastException($"Invalid object: {command}");
     }
 
-    public object DeserializeCommand(Stream input, ICommandHeader header)
+    public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
         AchieveLogin achieveLogin = new AchieveLogin();
         byte[] data = new byte[header.GetLength()];

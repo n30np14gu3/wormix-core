@@ -1,4 +1,5 @@
 ﻿using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
@@ -6,7 +7,7 @@ namespace wormix_core.Controllers.Account;
 
 public class ResetParametersController : IGameController
 {
-    public IMessage ProcessMessage(IMessage gameMessage, TcpSession? session)
+    public ISerializable ProcessMessage(ISerializable gameMessage, TcpSession? session)
     {
         //TODO: implement
         return new ResetParametersResult()

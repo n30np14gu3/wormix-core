@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct StartBattle : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct StartBattle : ISerializable
 {
     public int MissionId;
 

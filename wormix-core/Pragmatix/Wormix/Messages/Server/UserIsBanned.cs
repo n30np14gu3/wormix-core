@@ -1,8 +1,9 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct UserIsBanned : IMessage
+public struct UserIsBanned : ISerializable
 {
     public int Reason;
     public uint EndDate;

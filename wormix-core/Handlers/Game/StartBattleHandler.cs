@@ -1,6 +1,6 @@
 ﻿using wormix_core.Controllers;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
-using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 using wormix_core.Session;
@@ -14,7 +14,7 @@ public class StartBattleHandler(ICommandSerializer requestSerializer, IGameContr
     {
         if (requestMessage is StartBattle startBattleRequest)
         {
-            IMessage result = MessageController.ProcessMessage(startBattleRequest, Client);
+            ISerializable result = MessageController.ProcessMessage(startBattleRequest, Client);
             StartBattleResultBinarySerializer serializer = new StartBattleResultBinarySerializer();
             serializer.SerializeCommand(result, Client.GetStream());
         }

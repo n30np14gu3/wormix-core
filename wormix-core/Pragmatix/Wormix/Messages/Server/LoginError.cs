@@ -1,8 +1,9 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct LoginError : IMessage
+public struct LoginError : ISerializable
 {
     public const int ProphylacticWork = 0;
     public const int IncorrectKey = 1;

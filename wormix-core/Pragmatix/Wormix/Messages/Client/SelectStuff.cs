@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct SelectStuff(short stuffId = 0) : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct SelectStuff(short stuffId = 0) : ISerializable
 {
     public short StuffId = stuffId;
     public uint GetSize()

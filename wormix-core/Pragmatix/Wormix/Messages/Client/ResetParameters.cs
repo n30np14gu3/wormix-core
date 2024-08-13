@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct ResetParameters(int moneyType = -1) : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct ResetParameters(int moneyType = -1) : ISerializable
 {
     public const int RealMoney = 0;
     public const int Money = 1;

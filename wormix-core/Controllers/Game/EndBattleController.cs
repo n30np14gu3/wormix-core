@@ -1,11 +1,11 @@
-﻿using wormix_core.Pragmatix.Wormix.Messages;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Session;
 
 namespace wormix_core.Controllers.Game;
 
 public class EndBattleController : IGameController
 {
-    public IMessage ProcessMessage(IMessage gameMessage, TcpSession? session)
+    public ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
         throw new NotImplementedException();
     }

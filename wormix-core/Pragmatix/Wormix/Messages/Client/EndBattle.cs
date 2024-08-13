@@ -1,8 +1,9 @@
-﻿using wormix_core.Pragmatix.Wormix.Messages.Structures;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
+using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Client;
 
-public struct EndBattle(int result = 0, int type = 0) : IMessage
+public struct EndBattle(int result = 0, int type = 0) : ISerializable
 {
     public const int ResultWinner = 1;
     public const int ResultNotWinner = -1;

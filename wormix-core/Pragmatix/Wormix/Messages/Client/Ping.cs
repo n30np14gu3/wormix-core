@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct Ping(uint friendId = 0) : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct Ping(uint friendId = 0) : ISerializable
 {
     public uint FriendId = friendId;
     public uint GetSize()

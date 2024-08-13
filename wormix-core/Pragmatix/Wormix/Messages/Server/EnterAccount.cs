@@ -1,9 +1,10 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct EnterAccount() : IMessage
+public struct EnterAccount() : ISerializable
 {
     public UserProfileStructure UserProfileStructure = new();
     public List<UserProfileStructure> UserProfileStructures = new();

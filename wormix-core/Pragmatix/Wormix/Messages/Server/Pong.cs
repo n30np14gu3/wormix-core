@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct Pong : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+
+public struct Pong : ISerializable
 {
     public uint GetSize()
     {

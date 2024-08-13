@@ -1,6 +1,6 @@
 ﻿using wormix_core.Controllers;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
-using wormix_core.Pragmatix.Wormix.Messages;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 using wormix_core.Session;
@@ -14,7 +14,7 @@ public class ResetParametersHandler(ICommandSerializer requestSerializer, IGameC
     {
         if (requestMessage is ResetParameters resetRequest)
         {
-            IMessage result = MessageController.ProcessMessage(resetRequest, Client);
+            ISerializable result = MessageController.ProcessMessage(resetRequest, Client);
             new ResetParametersResultBinarySerializer().SerializeCommand(result, Client.GetStream());
         }
     }

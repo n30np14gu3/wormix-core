@@ -1,8 +1,9 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct ShopItemStructure() : IMessage
+public struct ShopItemStructure() : ISerializable
 {
     public const int RealMoney = 0;
     public const int Money = 1;

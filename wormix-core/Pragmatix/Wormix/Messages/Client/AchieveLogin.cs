@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct AchieveLogin : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct AchieveLogin : ISerializable
 {
     public string ApplicationId;
     public string SocialNetworkId;

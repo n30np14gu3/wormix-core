@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct Login() : IMessage
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct Login() : ISerializable
 {
     public uint Id;
     public uint ReferrerId;

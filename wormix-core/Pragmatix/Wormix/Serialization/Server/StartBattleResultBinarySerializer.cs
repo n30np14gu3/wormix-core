@@ -2,6 +2,7 @@
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Server;
 
@@ -12,7 +13,7 @@ public class StartBattleResultBinarySerializer : ICommandSerializer
         return 10006;
     }
 
-    public void SerializeCommand(object command, Stream output)
+    public void SerializeCommand(ISerializable command, Stream output)
     {
         if (command is StartBattleResult result)
         {
@@ -34,7 +35,7 @@ public class StartBattleResultBinarySerializer : ICommandSerializer
             throw new InvalidCastException("Invalid StartBattleResult object");
     }
 
-    public object DeserializeCommand(Stream input, ICommandHeader header)
+    public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
         return null!;
     }

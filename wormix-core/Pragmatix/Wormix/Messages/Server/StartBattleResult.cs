@@ -1,9 +1,10 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct StartBattleResult() : IMessage
+public struct StartBattleResult() : ISerializable
 {
     public List<WeaponStructure> Awards = new();
     public uint BattleId;

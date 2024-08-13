@@ -1,8 +1,9 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct BonusDaysStructure() : IMessage
+public struct BonusDaysStructure() : ISerializable
 {
     public int Money;
     public int RealMoney;

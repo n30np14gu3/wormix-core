@@ -1,6 +1,7 @@
 ﻿using wormix_core.Extensions;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Client;
 
@@ -11,12 +12,12 @@ public class EndBattleBinarySerializer : ICommandSerializer
         return 84;
     }
 
-    public void SerializeCommand(object command, Stream output)
+    public void SerializeCommand(ISerializable command, Stream output)
     {
         
     }
 
-    public object DeserializeCommand(Stream input, ICommandHeader header)
+    public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
         EndBattle endBattle = new();
         byte[] commandPayload = new byte[header.GetLength()];

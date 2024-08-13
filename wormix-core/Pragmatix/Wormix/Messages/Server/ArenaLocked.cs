@@ -1,8 +1,9 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct ArenaLocked : IMessage
+public struct ArenaLocked : ISerializable
 {
     public uint Delay;
     public short MissionId;

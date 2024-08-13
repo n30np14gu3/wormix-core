@@ -1,9 +1,10 @@
 ﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Server;
 
-public struct ShopResult() : IMessage
+public struct ShopResult() : ISerializable
 {
     public const int Success = 0;
     public const int Error = 1;
