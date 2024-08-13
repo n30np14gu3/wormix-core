@@ -17,6 +17,7 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
         {3, new ShopHandler()},
         {4, new ArenaHandler()},
         {6, new BattleHandler()},
+        {15, new ResetParametersHandler()},
         {16, new PingHandler()},
         {25, new SelectStuffHandler()},
         {36, new ChangeRaceHandler()},
