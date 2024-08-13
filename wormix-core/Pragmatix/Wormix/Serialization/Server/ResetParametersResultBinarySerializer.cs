@@ -22,8 +22,6 @@ public class ResetParametersResultBinarySerializer : ICommandSerializer
             header.Write(output);
             result.Serialize(output);
         }
-        else
-            throw new InvalidCastException("Invalid ResetParametersResult struct");
     }
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)

@@ -24,8 +24,6 @@ public class ArenaResultBinarySerializer : ICommandSerializer
             
             arenaResult.Serialize(output);
         }
-        else
-            throw new InvalidCastException("Invalid EnterAccountStruct");
     }
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)

@@ -31,8 +31,6 @@ public class StartBattleResultBinarySerializer : ICommandSerializer
             output.Write(resultPayload);
             output.Write(hash);
         }
-        else
-            throw new InvalidCastException("Invalid StartBattleResult object");
     }
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)

@@ -24,8 +24,6 @@ public struct LoginErrorBinarySerializer : ICommandSerializer
             header.Write(output);
             error.Serialize(output);
         }
-        else
-            throw new InvalidCastException("Invalid LoginError struct");
     }
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)

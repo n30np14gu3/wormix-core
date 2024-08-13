@@ -31,8 +31,6 @@ public class ShopResultBinarySerializer : ICommandSerializer
             output.Write(buyResultPayload);
             output.Write(hash);
         }
-        else
-            throw new InvalidCastException("Invalid ShopResult struct");
     }
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)

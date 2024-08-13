@@ -24,8 +24,7 @@ public class SelectStuffBinarySerializer : ICommandSerializer
         var readed = input.Read(selectStuffPayload);
         if (readed < header.GetLength())
             throw new ArgumentException($"Invalid recv length {readed}<{header.GetLength()}");
-
-        BuyShopItems shopItems = new BuyShopItems();
+        
         using (MemoryStream ms = new MemoryStream(selectStuffPayload))
         {
             BinaryReader br = new BinaryReader(ms);

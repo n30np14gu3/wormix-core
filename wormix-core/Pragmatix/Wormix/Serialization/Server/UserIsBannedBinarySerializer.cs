@@ -32,8 +32,6 @@ public class UserIsBannedBinarySerializer : ICommandSerializer
             
             output.Write(payload);
         }
-        else
-            throw new InvalidCastException("Invalid UserIsBanned object");
     }
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
