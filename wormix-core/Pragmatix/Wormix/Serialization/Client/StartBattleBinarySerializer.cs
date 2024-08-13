@@ -13,7 +13,7 @@ public class StartBattleBinarySerializer : ICommandSerializer
 
     public void SerializeCommand(object command, Stream output)
     {
-        throw new NotImplementedException();
+        //Not needed
     }
 
     public object DeserializeCommand(Stream input, ICommandHeader header)

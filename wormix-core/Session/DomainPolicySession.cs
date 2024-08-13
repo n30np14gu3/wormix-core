@@ -17,8 +17,7 @@ public class DomainPolicySession(TcpServer server) : TcpSession(server)
             return;
         byte[] policy = new byte[SessionClient.Available];
         SessionClient.Client.Receive(policy);
-        Console.WriteLine($"Policy request:\n{HexDump.HexDump.Format(policy)}");
-        SessionClient.Client.Send(Encoding.UTF8.GetBytes(_defaultPolicy));
+        SendMessage(Encoding.UTF8.GetBytes(_defaultPolicy));
         Thread.Sleep(1000);
         SessionClient.Close(); //Close after sending
     }

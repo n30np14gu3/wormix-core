@@ -20,19 +20,8 @@ public struct LoginErrorBinarySerializer : ICommandSerializer
             header.SetCommandId(GetCommandId());
             header.SetLength(error.GetSize());
             
-            byte[] payload = new byte[BinaryCommandHeader.HeaderSize + error.GetSize()];
-            using(MemoryStream ms = new MemoryStream(payload))
-            {
-                //Write header
-                header.Write(ms);
-                
-                //Write AchieveLogin data
-                BinaryWriter bw = new BinaryWriter(ms);
-                bw.WriteUInt32Be((uint)error.Result);
-            }
-            
-            //Send to output stream
-            output.Write(payload);
+            header.Write(output);
+            error.Serialize(output);
         }
         else
             throw new InvalidCastException("Invalid LoginError struct");
@@ -41,6 +30,6 @@ public struct LoginErrorBinarySerializer : ICommandSerializer
     public object DeserializeCommand(Stream input, ICommandHeader header)
     {
         //Not needed
-        throw new NotImplementedException();
+        return null!;
     }
 }

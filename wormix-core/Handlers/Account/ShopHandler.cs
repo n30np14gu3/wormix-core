@@ -14,19 +14,12 @@ public class ShopHandler : GameMessageHandler
         if(Header == null || DataPayload == null)
             return;
         
-        BuyShopItems items = new();
+        BuyShopItems items;
         
         using (MemoryStream ms = new MemoryStream(DataPayload))
         {
             BuyShopItemsBinarySerializer shopItems = new BuyShopItemsBinarySerializer();
             items = (BuyShopItems)shopItems.DeserializeCommand(ms, Header);
-            Console.WriteLine($"Buy items request [{items.ShopItems.Count}]");
-            foreach (var i in items.ShopItems)
-            {
-                Console.WriteLine($"ID: {i.Id}");
-                Console.WriteLine($"Count: {i.Count}");
-                Console.WriteLine($"MoneyType: {i.MoneyType}\n");
-            }
         }
 
         if (items.ShopItems.Count != 0)

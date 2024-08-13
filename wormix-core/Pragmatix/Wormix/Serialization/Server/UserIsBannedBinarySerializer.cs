@@ -38,6 +38,6 @@ public class UserIsBannedBinarySerializer : ICommandSerializer
     public object DeserializeCommand(Stream input, ICommandHeader header)
     {
         //Not needed
-        throw new NotImplementedException();
+        return null!;
     }
 }

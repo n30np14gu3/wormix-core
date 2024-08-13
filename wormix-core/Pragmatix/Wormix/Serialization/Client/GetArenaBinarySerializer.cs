@@ -12,17 +12,16 @@ public class GetArenaBinarySerializer : ICommandSerializer
 
     public void SerializeCommand(object command, Stream output)
     {
-        throw new NotImplementedException();
     }
 
     public object DeserializeCommand(Stream input, ICommandHeader header)
     {
         //Very simple xD
-        
         BinaryReader br = new BinaryReader(input);
-        
-        GetArena arena = new GetArena();
-        arena.ReturnUsersProfiles = br.ReadBoolean();
+        GetArena arena = new GetArena
+        {
+            ReturnUsersProfiles = br.ReadBoolean()
+        };
         return arena;
     }
 }

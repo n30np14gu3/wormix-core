@@ -15,7 +15,6 @@ public class LoginBinarySerializer : ICommandSerializer
     public void SerializeCommand(object command, Stream output)
     {
         //Not needed
-        throw new NotImplementedException();
     }
 
     public object DeserializeCommand(Stream input, ICommandHeader header)

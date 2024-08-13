@@ -18,7 +18,7 @@ public class StartBattleResultBinarySerializer : ICommandSerializer
         {
             BinaryCommandHeader header = new BinaryCommandHeader();
             header.SetCommandId(GetCommandId());
-            header.SetLength(result.GetSize() + 16);
+            header.SetLength(result.GetSize() + 16 /*MD5 Hash*/);
 
             byte[] resultPayload = new byte[result.GetSize()];
             using(MemoryStream ms = new MemoryStream(resultPayload))
@@ -36,6 +36,6 @@ public class StartBattleResultBinarySerializer : ICommandSerializer
 
     public object DeserializeCommand(Stream input, ICommandHeader header)
     {
-        throw new NotImplementedException();
+        return null!;
     }
 }

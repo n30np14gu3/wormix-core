@@ -1,6 +1,6 @@
-﻿using wormix_core.Pragmatix.Flox.Serialization.Internals;
+﻿using wormix_core.Controllers.Game;
+using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
-using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
@@ -19,14 +19,8 @@ public class BattleHandler : GameMessageHandler
             StartBattleBinarySerializer startBattleBinarySerializer = new StartBattleBinarySerializer();
             startBattle = (StartBattle)startBattleBinarySerializer.DeserializeCommand(ms, Header);
         }
-        
-        Console.WriteLine($"Starting battle: {startBattle.MissionId}");
 
-        StartBattleResult result = new()
-        {
-            BattleId = 1020
-        };
-        
+        IMessage result = new StartBattleController().ProcessMessage(startBattle, Client);
         StartBattleResultBinarySerializer serializer = new StartBattleResultBinarySerializer();
         serializer.SerializeCommand(result, Client?.GetStream()!);
     }

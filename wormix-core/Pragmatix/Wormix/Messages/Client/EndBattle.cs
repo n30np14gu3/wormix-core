@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Structures;
 
-public struct EndBattle(int result = 0, int type = 0)
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct EndBattle(int result = 0, int type = 0) : IMessage
 {
     public const int ResultWinner = 1;
     public const int ResultNotWinner = -1;
@@ -18,11 +20,20 @@ public struct EndBattle(int result = 0, int type = 0)
     public int BattleId;
     public int MissionId;
 
-    public List<object> Items = new();
+    public List<WeaponStructure> Items = new();
     public List<byte> Signature = new();
 
-    public int BanType = 0;
+    public short BanType = 0;
     public string BanNote = "";
 
     public List<int> CollectedReagents = new();
+    public uint GetSize()
+    {
+        return 0; //Not needed
+    }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }

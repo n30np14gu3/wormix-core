@@ -5,24 +5,24 @@ using wormix_core.Pragmatix.Wormix.Messages.Server;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Server;
 
-public class EnterAccountBinarySerializer : ICommandSerializer
+public class SelectStuffResultBinarySerializer : ICommandSerializer
 {
     public uint GetCommandId()
     {
-        return 10001;
+        return 10022;
     }
 
     public void SerializeCommand(object command, Stream output)
     {
-        if (command is EnterAccount account)
+        if (command is SelectStuffResult result)
         {
             BinaryCommandHeader header = new BinaryCommandHeader();
             header.SetCommandId(GetCommandId());
-            header.SetLength(account.GetSize() + 16 /*MD5 Sum*/);
+            header.SetLength(result.GetSize() + 16 /*MD5 Sum*/);
 
-            byte[] payload = new byte[account.GetSize()];
+            byte[] payload = new byte[result.GetSize()];
             using (MemoryStream ms = new MemoryStream(payload))
-                account.Serialize(ms);
+                result.Serialize(ms);
 
             byte[] hash = SerializeSecurityUtils.Secure(payload);
             

@@ -29,6 +29,7 @@ public class ArenaResultBinarySerializer : ICommandSerializer
 
     public object DeserializeCommand(Stream input, ICommandHeader header)
     {
-        throw new NotImplementedException();
+        //Not needed
+        return null!;
     }
 }

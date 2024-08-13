@@ -1,4 +1,5 @@
-﻿using wormix_core.Handlers;
+﻿using wormix_core.Extensions;
+using wormix_core.Handlers;
 using wormix_core.Handlers.Account;
 using wormix_core.Handlers.Game;
 using wormix_core.Handlers.Service;
@@ -10,48 +11,50 @@ namespace wormix_core.Session;
 public class MainServerSession(TcpServer server) : TcpSession(server)
 {    
     
-    private readonly Dictionary<uint, GameMessageHandler> _controllers = new()
+    private readonly Dictionary<uint, GameMessageHandler> _handlers = new()
     {
         {1, new LoginHandler()},
         {3, new ShopHandler()},
         {4, new ArenaHandler()},
         {6, new BattleHandler()},
         {16, new PingHandler()},
-        {36, new ChangeRaceHandler()}
+        {25, new SelectStuffHandler()},
+        {36, new ChangeRaceHandler()},
+        {84, new EndBattleHandler()}
     };
     
     protected override void OnMessage(Stream dataStream)
     {
         try
         {
-            Console.WriteLine($"New data: {SessionClient?.Available}");
             BinaryCommandHeader cmd = new BinaryCommandHeader();
             cmd.Read(dataStream);
 
-            Console.WriteLine($"CMD ID: {cmd.GetCommandId()}");
-            Console.WriteLine($"Length: {cmd.GetLength()}");
+            ColorPrint.WriteLine($"New data: {SessionClient?.Available}", ConsoleColor.Green);
+            ColorPrint.WriteLine($"CMD ID: {cmd.GetCommandId()}", ConsoleColor.Green);
+            ColorPrint.WriteLine($"Length: {cmd.GetLength()}", ConsoleColor.Green);
 
             byte[] data = new byte[cmd.GetLength()];
             if (cmd.GetLength() != 0)
             {
                 SessionClient?.Client.Receive(data);
-                Console.WriteLine($"RAW:\n{HexDump.HexDump.Format(data)}");
+                ColorPrint.WriteLine($"RAW:\n{HexDump.HexDump.Format(data)}", ConsoleColor.Yellow);
             }
             
-            if (_controllers.ContainsKey(cmd.GetCommandId()))
-                _controllers[cmd.GetCommandId()].Handle(data, this, cmd);
+            if (_handlers.ContainsKey(cmd.GetCommandId()))
+                _handlers[cmd.GetCommandId()].Handle(data, this, cmd);
             else
-                Console.WriteLine("Unknown CMD ID");
+                ColorPrint.WriteLine("Unknown CMD ID", ConsoleColor.Red);
                 
         }
         catch (ArgumentException ex)
         {
-            Console.WriteLine($"Argument exception: {ex.Message}");
+            ColorPrint.WriteLine($"Argument exception: {ex.Message}", ConsoleColor.Red);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Unknown error: {ex.Message}");
-            Console.WriteLine("Closing client connection");
+            ColorPrint.WriteLine($"Unknown error: {ex.Message}", ConsoleColor.Red);
+            ColorPrint.WriteLine("Closing client connection", ConsoleColor.Red);
             SessionClient?.Close();
         }
     }

@@ -44,7 +44,7 @@ public struct EnterAccount() : IMessage
         bw.WriteUInt16Be((ushort)UserProfileStructures.Count);
         UserProfileStructures.ForEach((x) =>
         {
-            bw.Write(x.GetSize());
+            bw.WriteUInt16Be((ushort)x.GetSize());
             x.Serialize(output);
         });
         

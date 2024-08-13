@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text;
+using wormix_core.Extensions;
 using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Session;
 
@@ -16,10 +17,9 @@ public class HttpProcessor
         using (HttpClient client = new HttpClient())
         {
             client.DefaultRequestHeaders.Add("X-TCP-SESSION", session?.GetSessionId().ToString());
-
-            Console.ForegroundColor = ConsoleColor.Green;
+            
             string jsonRequest = JsonConvert.SerializeObject(request);
-            Console.WriteLine(jsonRequest);
+            ColorPrint.WriteLine(jsonRequest, ConsoleColor.Blue);
             
             var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             if(!string.IsNullOrWhiteSpace(session?.GetToken()))
@@ -29,11 +29,8 @@ public class HttpProcessor
                 throw new Exception($"Http Request Error [{response.StatusCode}]");
 
             string result = response.Content.ReadAsStringAsync().Result;
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(result);
-
-            Console.ForegroundColor = ConsoleColor.Gray;
+            
+            ColorPrint.WriteLine(result, ConsoleColor.Red);
             return JToken.Parse(result);
         }
     }
