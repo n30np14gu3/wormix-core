@@ -1,41 +1,29 @@
 ﻿using wormix_core.Controllers;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
+using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Session;
 
 namespace wormix_core.Handlers;
 
-public abstract class GameMessageHandler()
+public class GameMessageHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session)
 {
-    protected byte[]? DataPayload;
-    protected TcpSession? Client;
-    
-    protected ICommandHeader? Header;
-    
-    protected IGameController? MessageController { get; private set; }
-    
-    public void Handle(byte[] payload, TcpSession client, ICommandHeader header)
-    {
-        DataPayload = payload;
-        Client = client;
-        Header = header;
-        
-        bool controllerRequired = true;
-        foreach (var attribute in GetType().GetCustomAttributes(false))
-        {
-            if (attribute is ControlledBy controlledBy)
-            {
-                controllerRequired = controlledBy.Required;
-                if(controllerRequired)
-                    MessageController = (IGameController)Activator.CreateInstance(controlledBy.Controller)!;
-            }
-        }
+    protected readonly TcpSession Client = session;
+    protected readonly IGameController MessageController = controller;
 
-        if (MessageController == null && controllerRequired)
-            throw new Exception($"Can't find ControlledBy attribute in {this}");
-        
+    protected IMessage? requestMessage { get; private set; }
+    
+    public void Handle(byte[] payload, ICommandHeader header)
+    {
+        using (MemoryStream ms = new MemoryStream(payload))
+        {
+            requestMessage = (IMessage)requestSerializer.DeserializeCommand(ms, header);
+        }
         Process();
     }
 
-    protected abstract void Process();
+    protected virtual void Process()
+    {
+        
+    }
 
 }

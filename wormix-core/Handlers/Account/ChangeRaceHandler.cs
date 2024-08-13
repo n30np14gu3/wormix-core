@@ -1,32 +1,22 @@
 ﻿using wormix_core.Controllers;
-using wormix_core.Controllers.Account;
+using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
-using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Server;
+using wormix_core.Session;
 
 namespace wormix_core.Handlers.Account;
 
-[ControlledBy(typeof(LoginController))]
-public class ChangeRaceHandler : GameMessageHandler
+public class ChangeRaceHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
+    GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()
     {
-        if (DataPayload == null || Header == null)
-            return;
-
-        ChangeRaceSerializer serializer = new ChangeRaceSerializer();
-        object cmdData;
-        using (MemoryStream ms = new MemoryStream(DataPayload))
+        if (requestMessage is ChangeRace changeRace)
         {
-            cmdData = (ChangeRace)serializer.DeserializeCommand(ms, Header);
-        }
-
-        if (cmdData is ChangeRace changeRace)
-        {
-            IMessage result = MessageController!.ProcessMessage(changeRace, Client);
+            IMessage result = MessageController.ProcessMessage(changeRace, Client);
             ChangeRaceResultBinarySerializer resultSerializer = new ChangeRaceResultBinarySerializer();
-            resultSerializer.SerializeCommand(result, Client?.GetStream()!);
+            resultSerializer.SerializeCommand(result, Client.GetStream());
         }
     }
 }

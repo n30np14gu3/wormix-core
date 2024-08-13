@@ -1,31 +1,41 @@
-﻿using wormix_core.Extensions;
+﻿using wormix_core.Controllers.Account;
+using wormix_core.Controllers.Game;
+using wormix_core.Controllers.Service;
+using wormix_core.Extensions;
 using wormix_core.Handlers;
 using wormix_core.Handlers.Account;
 using wormix_core.Handlers.Game;
 using wormix_core.Handlers.Service;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
+using wormix_core.Pragmatix.Wormix.Serialization.Client;
 using wormix_core.Server;
 
 namespace wormix_core.Session;
 
 public class MainServerSession(TcpServer server) : TcpSession(server)
-{    
+{
+    private Dictionary<uint, GameMessageHandler> _handlers = new();
     
-    private readonly Dictionary<uint, GameMessageHandler> _handlers = new()
+    private Dictionary<uint, GameMessageHandler> GetHandlers()
     {
-        {1, new LoginHandler()},
-        {3, new ShopHandler()},
-        {4, new ArenaHandler()},
-        {6, new BattleHandler()},
-        {15, new ResetParametersHandler()},
-        {16, new PingHandler()},
-        {25, new SelectStuffHandler()},
-        {36, new ChangeRaceHandler()},
-        {84, new EndBattleHandler()}
-    };
-    
+        return new()
+        {
+            {1, new LoginHandler(new LoginBinarySerializer(), new LoginController(), this)},
+            {3, new ShopHandler(new BuyShopItemsBinarySerializer(), new ShopController(), this)},
+            {4, new ArenaHandler(new GetArenaBinarySerializer(), new ArenaController(), this)},
+            {6, new StartBattleHandler(new StartBattleBinarySerializer(), new StartBattleController(), this)},
+            {15, new ResetParametersHandler(new ResetParametersBinarySerializer(), new ResetParametersController(), this)},
+            {16, new PingHandler(new PingBinarySerializer(), new PingController(), this)},
+            {25, new SelectStuffHandler(new SelectStuffBinarySerializer(), new SelectStuffController(), this)},
+            {36, new ChangeRaceHandler(new ChangeRaceSerializer(), new ChangeRaceController(), this)},
+            {84, new EndBattleHandler(new EndBattleBinarySerializer(), new EndBattleController(), this)}
+        };
+    }
     protected override void OnMessage(Stream dataStream)
     {
+        if (_handlers.Count == 0)
+            _handlers = GetHandlers();
+        
         try
         {
             BinaryCommandHeader cmd = new BinaryCommandHeader();
@@ -41,9 +51,12 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
                 SessionClient?.Client.Receive(data);
                 ColorPrint.WriteLine($"RAW:\n{HexDump.HexDump.Format(data)}", ConsoleColor.Yellow);
             }
-            
+
             if (_handlers.ContainsKey(cmd.GetCommandId()))
-                _handlers[cmd.GetCommandId()].Handle(data, this, cmd);
+            {
+                ColorPrint.WriteLine($"Processing via: {_handlers[cmd.GetCommandId()]}", ConsoleColor.DarkGreen);
+                _handlers[cmd.GetCommandId()].Handle(data, cmd);
+            }
             else
                 ColorPrint.WriteLine("Unknown CMD ID", ConsoleColor.Red);
                 

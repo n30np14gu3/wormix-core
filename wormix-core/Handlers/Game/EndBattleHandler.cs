@@ -1,25 +1,14 @@
 ﻿using wormix_core.Controllers;
-using wormix_core.Pragmatix.Wormix.Messages.Client;
-using wormix_core.Pragmatix.Wormix.Serialization.Client;
+using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
+using wormix_core.Session;
 
 namespace wormix_core.Handlers.Game;
 
-[ControlledBy(typeof(Type), false)]
-public class EndBattleHandler : GameMessageHandler
+public class EndBattleHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
+    GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()
     {
-        if(Header == null || DataPayload ==null)
-            return;
-        
-        EndBattleSerializer requestSerializer = new EndBattleSerializer();
-        using (MemoryStream ms = new MemoryStream(DataPayload))
-        {
-            object request = requestSerializer.DeserializeCommand(ms, Header);
-            if (request is EndBattle endBattle)
-            {
-                
-            }
-        }
+        //TODO: implement
     }
 }
