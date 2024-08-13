@@ -1,8 +1,10 @@
-﻿using wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Controllers;
+using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
 
 namespace wormix_core.Handlers.Game;
 
+[ControlledBy(typeof(Type), false)]
 public class EndBattleHandler : GameMessageHandler
 {
     protected override void Process()

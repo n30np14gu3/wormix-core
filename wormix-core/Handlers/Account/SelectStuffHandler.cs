@@ -1,4 +1,5 @@
-﻿using wormix_core.Controllers.Account;
+﻿using wormix_core.Controllers;
+using wormix_core.Controllers.Account;
 using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
@@ -7,6 +8,7 @@ using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
 namespace wormix_core.Handlers.Account;
 
+[ControlledBy(typeof(SelectStuffController))]
 public class SelectStuffHandler : GameMessageHandler
 {
     protected override void Process()
@@ -19,7 +21,7 @@ public class SelectStuffHandler : GameMessageHandler
             SelectStuffBinarySerializer serializer = new SelectStuffBinarySerializer();
             if (serializer.DeserializeCommand(ms, Header) is SelectStuff selectStuffRequest)
             {
-                IMessage response = new SelectStuffController().ProcessMessage(selectStuffRequest, Client);
+                IMessage response = MessageController!.ProcessMessage(selectStuffRequest, Client);
                 if (response is SelectStuffResult result)
                     new SelectStuffResultBinarySerializer().SerializeCommand(result, Client?.GetStream()!);
             }

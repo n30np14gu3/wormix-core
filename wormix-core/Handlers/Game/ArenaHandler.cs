@@ -1,4 +1,5 @@
-﻿using wormix_core.Controllers.Game;
+﻿using wormix_core.Controllers;
+using wormix_core.Controllers.Game;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
@@ -8,6 +9,7 @@ using wormix_core.Pragmatix.Wormix.Serialization.Server;
 
 namespace wormix_core.Handlers.Game;
 
+[ControlledBy(typeof(ArenaController))]
 public class ArenaHandler : GameMessageHandler
 {
     protected override void Process()
@@ -24,7 +26,7 @@ public class ArenaHandler : GameMessageHandler
             Console.WriteLine($"Get profiles: {arenaRequest.ReturnUsersProfiles}");
         }
 
-        IMessage arena = new ArenaController().ProcessMessage(arenaRequest, Client);
+        IMessage arena = MessageController!.ProcessMessage(arenaRequest, Client);
         ICommandSerializer? serializer = null;
         
         if (arena is ArenaResult)
