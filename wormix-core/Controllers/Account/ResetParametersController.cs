@@ -10,14 +10,14 @@ public class ResetParametersController : IGameController
     public ISerializable ProcessMessage(ISerializable gameMessage, TcpSession? session)
     {
         //TODO: implement
-        return new ResetParametersResult()
+        return new ResetParametersResult
         {
-            Result = (short)ResetParametersResult.Success
+            Result = ResetParametersResult.Success
         };
     }
 
     public string GetRoute()
     {
-        return "";
+        return "account/reset/stats";
     }
 }

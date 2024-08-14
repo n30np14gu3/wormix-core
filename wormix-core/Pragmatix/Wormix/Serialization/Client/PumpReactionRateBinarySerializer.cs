@@ -5,11 +5,11 @@ using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Client;
 
-public class SelectStuffBinarySerializer : ICommandSerializer
+public class PumpReactionRateBinarySerializer : ICommandSerializer
 {
     public uint GetCommandId()
     {
-        return 25;
+        return 83;
     }
 
     public void SerializeCommand(ISerializable command, Stream output)
@@ -19,9 +19,9 @@ public class SelectStuffBinarySerializer : ICommandSerializer
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
-        SelectStuff result = new();
+        PumpReactionRate result = new();
         BinaryReader br = new BinaryReader(input);
-        result.StuffId = (short)br.ReadUInt16Be();
+        result.FriendId = br.ReadUInt32Be();
         return result;
     }
 }

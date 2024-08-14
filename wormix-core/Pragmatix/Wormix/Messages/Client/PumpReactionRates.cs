@@ -1,6 +1,18 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct PumpReactionRates()
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct PumpReactionRates() : ISerializable
 {
-    public List<object> FriendsIds = new();
+    public List<uint> FriendsIds = new();
+    
+    public uint GetSize()
+    {
+        return (uint)(FriendsIds.Count * 4);
+    }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }

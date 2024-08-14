@@ -18,19 +18,12 @@ public class ChangeRaceSerializer : ICommandSerializer
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
-        byte[] changeRacePayload = new byte[header.GetLength()];
-        var readed = input.Read(changeRacePayload);
-        if (readed < header.GetLength())
-            throw new ArgumentException($"Invalid recv length {readed}<{header.GetLength()}");
-
         ChangeRace result = new();
-        using (MemoryStream ms = new MemoryStream(changeRacePayload))
-        {
-            BinaryReader br = new BinaryReader(ms);
-            result.RaceId = br.ReadByte();
-            result.MoneyType = br.ReadByte();
-        }
-
+        
+        BinaryReader br = new BinaryReader(input);
+        result.RaceId = br.ReadByte();
+        result.MoneyType = br.ReadByte();
+        
         return result;
     }
 }

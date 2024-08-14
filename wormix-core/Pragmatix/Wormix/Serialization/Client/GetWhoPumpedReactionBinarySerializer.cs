@@ -1,15 +1,14 @@
-﻿using wormix_core.Extensions;
-using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
+﻿using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
 using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
 namespace wormix_core.Pragmatix.Wormix.Serialization.Client;
 
-public class SelectStuffBinarySerializer : ICommandSerializer
+public class GetWhoPumpedReactionBinarySerializer : ICommandSerializer
 {
     public uint GetCommandId()
     {
-        return 25;
+        return 46;
     }
 
     public void SerializeCommand(ISerializable command, Stream output)
@@ -19,9 +18,10 @@ public class SelectStuffBinarySerializer : ICommandSerializer
 
     public ISerializable DeserializeCommand(Stream input, ICommandHeader header)
     {
-        SelectStuff result = new();
+        GetWhoPumpedReaction result = new();
         BinaryReader br = new BinaryReader(input);
-        result.StuffId = (short)br.ReadUInt16Be();
+        result.TodayOnly = br.ReadBoolean();
+
         return result;
     }
 }

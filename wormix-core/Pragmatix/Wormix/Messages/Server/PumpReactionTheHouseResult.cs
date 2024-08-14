@@ -1,12 +1,24 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct PumpReactionTheHouseResult
+namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+
+public struct PumpReactionTheHouseResult : ISerializable
 {
-    public const int Ok = 0;
-    public const int TodayAlreadyPumped = 1;
-    public const int Error = 2;
-    public const int DayLimitPump = 3;
+    public const byte Ok = 0;
+    public const byte TodayAlreadyPumped = 1;
+    public const byte Error = 2;
+    public const byte DayLimitPump = 3;
 
-    public int Result;
+    public byte Result;
 
+    public uint GetSize()
+    {
+        return 1;
+    }
+
+    public void Serialize(Stream output)
+    {
+        BinaryWriter bw = new BinaryWriter(output);
+        bw.Write(Result);
+    }
 }

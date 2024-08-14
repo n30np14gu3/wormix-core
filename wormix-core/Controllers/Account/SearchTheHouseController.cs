@@ -5,16 +5,16 @@ using wormix_core.Session;
 
 namespace wormix_core.Controllers.Account;
 
-public class ChangeRaceController : IGameController
+public class SearchTheHouseController : IGameController
 {
     public ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
         JObject result = HttpProcessor.PostRequest($"{Config.Url}{GetRoute()}", gameSerializable, session).ToObject<JObject>()!;
-        return result["data"]!.ToObject<ChangeRaceResult>();
+        return result["data"]!.ToObject<SearchTheHouseResult>();
     }
 
     public string GetRoute()
     {
-        return "account/buy/race";
+        return "house/search";
     }
 }

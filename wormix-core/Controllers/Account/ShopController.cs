@@ -15,6 +15,6 @@ public class ShopController : IGameController
 
     public string GetRoute()
     {
-        return "account/buy_items";
+        return "account/buy/items";
     }
 }

@@ -1,10 +1,12 @@
 ﻿using wormix_core.Controllers.Account;
 using wormix_core.Controllers.Game;
+using wormix_core.Controllers.Info;
 using wormix_core.Controllers.Service;
 using wormix_core.Extensions;
 using wormix_core.Handlers;
 using wormix_core.Handlers.Account;
 using wormix_core.Handlers.Game;
+using wormix_core.Handlers.Info;
 using wormix_core.Handlers.Service;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
@@ -21,13 +23,26 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
         return new()
         {
             {1, new LoginHandler(new LoginBinarySerializer(), new LoginController(), this)},
+            
             {3, new ShopHandler(new BuyShopItemsBinarySerializer(), new ShopController(), this)},
+            
             {4, new ArenaHandler(new GetArenaBinarySerializer(), new ArenaController(), this)},
             {6, new StartBattleHandler(new StartBattleBinarySerializer(), new StartBattleController(), this)},
+            
             {15, new ResetParametersHandler(new ResetParametersBinarySerializer(), new ResetParametersController(), this)},
+            
             {16, new PingHandler(new PingBinarySerializer(), new PingController(), this)},
+            
             {25, new SelectStuffHandler(new SelectStuffBinarySerializer(), new SelectStuffController(), this)},
+            
             {36, new ChangeRaceHandler(new ChangeRaceSerializer(), new ChangeRaceController(), this)},
+            
+            {46, new GetWhoPumpedReactionHandler(new GetWhoPumpedReactionBinarySerializer(), new GetWhoPumpedReactionController(), this)},
+            
+            {81, new SearchTheHouseHandler(new SearchTheHouseBinarySerializer(), new SearchTheHouseController(), this)},
+            {82, new PumpReactionRatesHandler(new PumpReactionRatesBinarySerializer(), new PumpReactionRatesController(), this)},
+            {83, new PumpReactionRateHandler(new PumpReactionRateBinarySerializer(), new PumpReactionRateController(), this)},
+            
             {84, new EndBattleHandler(new EndBattleBinarySerializer(), new EndBattleController(), this)}
         };
     }

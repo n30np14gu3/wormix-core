@@ -2,12 +2,13 @@
 
 namespace wormix_core.Pragmatix.Wormix.Messages.Client;
 
-public struct GetWhoPumpedReaction : ISerializable
+public struct PumpReactionRate : ISerializable
 {
-    public bool TodayOnly;
+    public uint FriendId;
+    
     public uint GetSize()
     {
-        return 1;
+        return 4;
     }
 
     public void Serialize(Stream output)
