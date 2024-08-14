@@ -21,7 +21,7 @@ public class StartBattleBinarySerializer : ICommandSerializer
     {
         StartBattle battle = new StartBattle();
         BinaryReader br = new BinaryReader(input);
-        battle.MissionId = br.ReadUInt16Be();
+        battle.MissionId = (short)br.ReadUInt16Be();
         return battle;
     }
 }

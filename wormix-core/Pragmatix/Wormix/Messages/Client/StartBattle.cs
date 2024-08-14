@@ -4,7 +4,7 @@ namespace wormix_core.Pragmatix.Wormix.Messages.Client;
 
 public struct StartBattle : ISerializable
 {
-    public int MissionId;
+    public short MissionId;
 
     public uint GetSize()
     {

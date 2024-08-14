@@ -27,9 +27,15 @@ public class EnterAccountBinarySerializer : ICommandSerializer
 
             byte[] hash = SerializeSecurityUtils.Secure(payload);
             
+            //Need for work
+            byte[] result = new byte[payload.Length + hash.Length];
+            using (MemoryStream ms = new MemoryStream(result))
+            {
+                ms.Write(payload);
+                ms.Write(hash);
+            }
             header.Write(output);
-            output.Write(payload);
-            output.Write(hash);
+            output.Write(result);
         }
     }
 

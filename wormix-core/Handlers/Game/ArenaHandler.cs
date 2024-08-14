@@ -15,9 +15,6 @@ public class ArenaHandler(ICommandSerializer requestSerializer, IGameController 
     {
         if (requestMessage is GetArena arenaRequest)
         {
-            Console.WriteLine("New arena request");
-            Console.WriteLine($"Get profiles: {arenaRequest.ReturnUsersProfiles}");
-            
             ISerializable arena = MessageController.ProcessMessage(arenaRequest, Client);
             ICommandSerializer? serializer = null;
         

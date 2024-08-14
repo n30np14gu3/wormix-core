@@ -18,11 +18,16 @@ public class ArenaResultBinarySerializer : ICommandSerializer
         {
             BinaryCommandHeader header = new BinaryCommandHeader();
             
+            //Need for work
+            byte[] buff = new byte[arenaResult.GetSize()];
+            using(MemoryStream ms = new MemoryStream(buff)) 
+                arenaResult.Serialize(ms);
+            
             header.SetCommandId(GetCommandId());
             header.SetLength(arenaResult.GetSize());
             header.Write(output);
+            output.Write(buff);
             
-            arenaResult.Serialize(output);
         }
     }
 
