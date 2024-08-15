@@ -8,7 +8,7 @@ using wormix_core.Session;
 
 namespace wormix_core.Handlers.Account;
 
-public class SelectStuffHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) :
+public class SelectStuffHandler(ICommandSerializer requestSerializer, GameController controller, TcpSession session) :
     GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()

@@ -7,7 +7,7 @@ using wormix_core.Session;
 
 namespace wormix_core.Handlers.Account;
 
-public class ChangeRaceHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
+public class ChangeRaceHandler(ICommandSerializer requestSerializer, GameController controller, TcpSession session) : 
     GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()
