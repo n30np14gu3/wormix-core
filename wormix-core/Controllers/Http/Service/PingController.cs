@@ -2,9 +2,9 @@
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
-namespace wormix_core.Controllers.Service;
+namespace wormix_core.Controllers.Http.Service;
 
-public class PingController : GameController
+public class PingController : HttpGameController
 {
     public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {

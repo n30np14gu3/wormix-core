@@ -1,4 +1,4 @@
-﻿namespace wormix_core.Controllers.Attributes;
+﻿namespace wormix_core.Controllers.Http.Attributes;
 
 public class ApiPost(string route = "") : Attribute
 {

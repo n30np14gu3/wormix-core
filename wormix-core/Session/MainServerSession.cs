@@ -1,7 +1,7 @@
-﻿using wormix_core.Controllers.Account;
-using wormix_core.Controllers.Game;
-using wormix_core.Controllers.Info;
-using wormix_core.Controllers.Service;
+﻿using wormix_core.Controllers.Http.Account;
+using wormix_core.Controllers.Http.Game;
+using wormix_core.Controllers.Http.Info;
+using wormix_core.Controllers.Http.Service;
 using wormix_core.Extensions;
 using wormix_core.Handlers;
 using wormix_core.Handlers.Account;
