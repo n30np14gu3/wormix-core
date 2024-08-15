@@ -8,7 +8,7 @@ using wormix_core.Session;
 
 namespace wormix_core.Handlers.Account;
 
-public class LoginHandler(ICommandSerializer requestSerializer, GameController controller, TcpSession session) : 
+public class LoginHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
     GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()

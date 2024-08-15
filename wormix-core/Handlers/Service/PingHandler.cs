@@ -5,7 +5,7 @@ using wormix_core.Session;
 
 namespace wormix_core.Handlers.Service;
 
-public class PingHandler(ICommandSerializer requestSerializer, GameController controller, TcpSession session) : 
+public class PingHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
     GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()

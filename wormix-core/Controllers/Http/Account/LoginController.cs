@@ -1,18 +1,17 @@
-﻿using wormix_core.Controllers.Attributes;
+﻿using wormix_core.Controllers.Http.Attributes;
 using wormix_core.Facades;
-using wormix_core.Pragmatix.Wormix.Messages;
 using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
-namespace wormix_core.Controllers.Account;
+namespace wormix_core.Controllers.Http.Account;
 
 [ApiPost("login")]
-public class LoginController : GameController
+public class LoginController : HttpGameController
 {
     public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
-        JObject result = HttpProcessor.PostRequest(Url, gameSerializable, session).ToObject<JObject>()!;
+        JObject result = PostRequest(gameSerializable, session).ToObject<JObject>()!;
         switch (result["type"]!.ToString())
         {
             case "EnterAccount":

@@ -1,18 +1,18 @@
-﻿using wormix_core.Controllers.Attributes;
-using wormix_core.Facades;
+﻿using wormix_core.Controllers.Http.Attributes;
+
 using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
-namespace wormix_core.Controllers.Account;
+namespace wormix_core.Controllers.Http.Account;
 
 
 [ApiPost("account/buy/race")]
-public class ChangeRaceController : GameController
+public class ChangeRaceController : HttpGameController
 {
     public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
-        JObject result = HttpProcessor.PostRequest(Url, gameSerializable, session).ToObject<JObject>()!;
+        JObject result = PostRequest(gameSerializable, session).ToObject<JObject>()!;
         return result["data"]!.ToObject<ChangeRaceResult>();
     }
 }
