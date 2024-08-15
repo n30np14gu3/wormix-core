@@ -5,10 +5,10 @@ using wormix_core.Session;
 
 namespace wormix_core.Handlers;
 
-public class GameMessageHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session)
+public class GameMessageHandler(ICommandSerializer requestSerializer, GameController controller, TcpSession session)
 {
     protected readonly TcpSession Client = session;
-    protected readonly IGameController MessageController = controller;
+    protected readonly GameController MessageController = controller;
 
     protected ISerializable? requestMessage { get; private set; }
     

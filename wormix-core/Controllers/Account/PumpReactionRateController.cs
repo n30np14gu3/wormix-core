@@ -1,20 +1,17 @@
-﻿using wormix_core.Facades;
+﻿using wormix_core.Controllers.Attributes;
+using wormix_core.Facades;
 using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
 namespace wormix_core.Controllers.Account;
 
-public class PumpReactionRateController : IGameController
+[ApiPost("house/pump_reaction")]
+public class PumpReactionRateController : GameController
 {
-    public ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
+    public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
-        JObject result = HttpProcessor.PostRequest($"{Config.Url}{GetRoute()}", gameSerializable, session).ToObject<JObject>()!;
+        JObject result = HttpProcessor.PostRequest(Url, gameSerializable, session).ToObject<JObject>()!;
         return result["data"]!.ToObject<PumpReactionTheHouseResult>();
-    }
-
-    public string GetRoute()
-    {
-        return "house/pump_reaction";
     }
 }

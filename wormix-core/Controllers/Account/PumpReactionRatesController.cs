@@ -1,17 +1,14 @@
-﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
+﻿using wormix_core.Controllers.Attributes;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Session;
 
 namespace wormix_core.Controllers.Account;
 
-public class PumpReactionRatesController : IGameController
+[ApiPost("house/pump_reactions")]
+public class PumpReactionRatesController : GameController
 {
-    public ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
+    public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
         throw new NotImplementedException();
-    }
-
-    public string GetRoute()
-    {
-        return "house/pump_reactions";
     }
 }
