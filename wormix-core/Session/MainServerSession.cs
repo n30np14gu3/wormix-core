@@ -24,6 +24,8 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
         {
             {1, new LoginHandler(new LoginBinarySerializer(), new LoginController(), this)},
             
+            {2, new NeedMoneyHandler(new NeedMoneyBinarySerializer(), new NeedMoneyController(), this)},
+            
             {3, new ShopHandler(new BuyShopItemsBinarySerializer(), new ShopController(), this)},
             
             {4, new ArenaHandler(new GetArenaBinarySerializer(), new ArenaController(), this)},
