@@ -1,7 +1,8 @@
 ﻿using wormix_core.Controllers.Http.Account;
 using wormix_core.Controllers.Http.Game;
 using wormix_core.Controllers.Http.Info;
-using wormix_core.Controllers.Http.Service;
+using wormix_core.Controllers.Static.Account;
+using wormix_core.Controllers.Static.Service;
 using wormix_core.Extensions;
 using wormix_core.Handlers;
 using wormix_core.Handlers.Account;
@@ -50,7 +51,9 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             {82, new PumpReactionRatesHandler(new PumpReactionRatesBinarySerializer(), new PumpReactionRatesController(), this)},
             {83, new PumpReactionRateHandler(new PumpReactionRateBinarySerializer(), new PumpReactionRateController(), this)},
             
-            {84, new EndBattleHandler(new EndBattleBinarySerializer(), new EndBattleController(), this)}
+            {84, new EndBattleHandler(new EndBattleBinarySerializer(), new EndBattleController(), this)},
+            
+            {86, new UpgradeWeaponHandler(new UpgradeWeaponBinarySerializer(), new UpgradeWeaponController(), this)},
         };
     }
     protected override void OnMessage(Stream dataStream)

@@ -9,14 +9,14 @@ public struct EnterAccount() : ISerializable
     public UserProfileStructure UserProfileStructure = new();
     public List<UserProfileStructure> UserProfileStructures = new();
     public DailyBonusStructure DailyBonusStructure = new();
-    public int OnlineFriends;
-    public int Friends;
+    public short OnlineFriends;
+    public short Friends;
     public string SessionKey = "";
     public bool IsBonusDay;
     public BonusDaysStructure BonusDaysStructure = new();
-    public int AvailableSearchKeys = new();
+    public byte AvailableSearchKeys = new();
     public List<uint> Reagents = new();
-    public bool IsSecure = new();
+    public bool IsSecure;
     public uint GetSize()
     {
         return
@@ -28,7 +28,7 @@ public struct EnterAccount() : ISerializable
                    + 2 // Friends
                    + 2 + SessionKey.Length // SessionKey
                    + 1 // IsBonusDay
-                   + (IsBonusDay ? + 2 + BonusDaysStructure.GetSize() : 0) //BonusDaysStructure
+                   + (IsBonusDay ? 2 + BonusDaysStructure.GetSize() : 0) //BonusDaysStructure
                    + 1 // AvailableSearchKeys
                    + 2 + 4 * Reagents.Count //Reagents[]
                 )
@@ -65,7 +65,7 @@ public struct EnterAccount() : ISerializable
             BonusDaysStructure.Serialize(output);
         }
         
-        bw.Write((byte)AvailableSearchKeys);
+        bw.Write(AvailableSearchKeys);
         
         bw.WriteUInt16Be((ushort)Reagents.Count);
         Reagents.ForEach((x) => bw.WriteUInt32Be(x));

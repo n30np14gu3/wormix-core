@@ -32,10 +32,10 @@ public struct UserProfileStructure() : ISerializable
             + 4 // Rating
             
             + 2 //WormGroupLength
-            + WormsGroup.Sum(x => x.GetSize()) * WormsGroup.Count //WormStructure[]
+            + WormsGroup.Sum(x => x.GetSize()) //WormStructure[]
             
             + 2 //WeaponRecordListLength
-            + WeaponRecordList.Sum(x => x.GetSize()) * WeaponRecordList.Count //WeaponStructure[]
+            + WeaponRecordList.Sum(x => x.GetSize()) //WeaponStructure[]
             
             + 2 //StuffLength
             + 2 * Stuff.Count //Stuff[]

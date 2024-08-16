@@ -2,12 +2,18 @@
 using wormix_core.Pragmatix.Wormix.Messages.Server;
 using wormix_core.Session;
 
-namespace wormix_core.Controllers.Http.Service;
+namespace wormix_core.Controllers.Static.Account;
 
-public class PingController : HttpGameController
+
+public class NeedMoneyController : StaticDataController
 {
     public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
-        return new Pong();
+        //Simple (not needed)
+        return new NeedMoneyResult
+        {
+            Result = 3,
+            Value = 0
+        };
     }
 }

@@ -1,6 +1,17 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct UpgradeWeapon(int recipeId = 0)
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct UpgradeWeapon(short recipeId = 0) : ISerializable
 {
-    public int RecipeId = recipeId;
+    public short RecipeId = recipeId;
+    public uint GetSize()
+    {
+        return 2;
+    }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }
