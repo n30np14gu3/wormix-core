@@ -29,6 +29,7 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             {4, new ArenaHandler(new GetArenaBinarySerializer(), new ArenaController(), this)},
             {6, new StartBattleHandler(new StartBattleBinarySerializer(), new StartBattleController(), this)},
             
+            {14, new DistributePointsHandler(new DistributePointsBinarySerializer(), new DistributePointsController(), this)},
             {15, new ResetParametersHandler(new ResetParametersBinarySerializer(), new ResetParametersController(), this)},
             
             {16, new PingHandler(new PingBinarySerializer(), new PingController(), this)},

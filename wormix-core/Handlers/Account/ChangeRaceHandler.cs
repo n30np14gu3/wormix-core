@@ -14,9 +14,8 @@ public class ChangeRaceHandler(ICommandSerializer requestSerializer, IGameContro
     {
         if (requestMessage is ChangeRace changeRace)
         {
-            ISerializable result = MessageController.ProcessMessage(changeRace, Client);
-            ChangeRaceResultBinarySerializer resultSerializer = new ChangeRaceResultBinarySerializer();
-            resultSerializer.SerializeCommand(result, Client.GetStream());
+            new ChangeRaceResultBinarySerializer()
+                .SerializeCommand(MessageController.ProcessMessage(changeRace, Client), Client.GetStream());
         }
     }
 }
