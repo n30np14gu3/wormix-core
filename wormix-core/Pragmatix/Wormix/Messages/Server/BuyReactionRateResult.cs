@@ -1,7 +1,23 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct BuyReactionRateResult
+namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+
+public struct BuyReactionRateResult : ISerializable
 {
-    public int Result;
-    public uint ReactionRateCount;
+    public short Result;
+    public byte ReactionRateCount;
+    public uint GetSize()
+    {
+        return
+            2 //Result
+            + 1; //ReactionRateCount
+    }
+
+    public void Serialize(Stream output)
+    {
+        BinaryWriter bw = new BinaryWriter(output);
+        bw.WriteUInt16Be((ushort)Result);
+        bw.Write(ReactionRateCount);
+    }
 }

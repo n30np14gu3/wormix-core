@@ -40,6 +40,8 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             
             {46, new GetWhoPumpedReactionHandler(new GetWhoPumpedReactionBinarySerializer(), new GetWhoPumpedReactionController(), this)},
             
+            {49, new BuyReactionRateHandler(new BuyReactionRateBinarySerializer(), new BuyReactionRateController(), this)},
+            
             {81, new SearchTheHouseHandler(new SearchTheHouseBinarySerializer(), new SearchTheHouseController(), this)},
             {82, new PumpReactionRatesHandler(new PumpReactionRatesBinarySerializer(), new PumpReactionRatesController(), this)},
             {83, new PumpReactionRateHandler(new PumpReactionRateBinarySerializer(), new PumpReactionRateController(), this)},

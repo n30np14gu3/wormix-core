@@ -1,6 +1,18 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct BuyReactionRate(uint reactionRateCount = 0)
+namespace wormix_core.Pragmatix.Wormix.Messages.Client;
+
+public struct BuyReactionRate(byte reactionRateCount = 0) : ISerializable
 {
-    public uint ReactionRateCount = reactionRateCount;
+    public byte ReactionRateCount = reactionRateCount;
+    
+    public uint GetSize()
+    {
+        return 1;
+    }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }
