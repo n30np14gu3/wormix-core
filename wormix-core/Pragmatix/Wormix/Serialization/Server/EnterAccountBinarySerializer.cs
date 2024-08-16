@@ -15,15 +15,15 @@ public class EnterAccountBinarySerializer : ICommandSerializer
 
     public void SerializeCommand(ISerializable command, Stream output)
     {
-        if (command is EnterAccount account)
+        if (command is EnterAccount)
         {
             BinaryCommandHeader header = new BinaryCommandHeader();
             header.SetCommandId(GetCommandId());
-            header.SetLength(account.GetSize() + 16 /*MD5 Sum*/);
+            header.SetLength(command.GetSize() + 16 /*MD5 Sum*/);
 
-            byte[] payload = new byte[account.GetSize()];
+            byte[] payload = new byte[command.GetSize()];
             using (MemoryStream ms = new MemoryStream(payload))
-                account.Serialize(ms);
+                command.Serialize(ms);
 
             byte[] hash = SerializeSecurityUtils.Secure(payload);
             

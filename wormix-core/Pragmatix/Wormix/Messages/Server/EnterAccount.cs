@@ -30,7 +30,7 @@ public struct EnterAccount() : ISerializable
                    + 1 // IsBonusDay
                    + (IsBonusDay ? + 2 + BonusDaysStructure.GetSize() : 0) //BonusDaysStructure
                    + 1 // AvailableSearchKeys
-                   + 4 + 4 * Reagents.Count //Reagents[]
+                   + 2 + 4 * Reagents.Count //Reagents[]
                 )
             ;
     }
@@ -67,7 +67,7 @@ public struct EnterAccount() : ISerializable
         
         bw.Write((byte)AvailableSearchKeys);
         
-        bw.WriteUInt32Be((uint)Reagents.Count);
+        bw.WriteUInt16Be((ushort)Reagents.Count);
         Reagents.ForEach((x) => bw.WriteUInt32Be(x));
     }
 }
