@@ -5,15 +5,12 @@ using wormix_core.Session;
 
 namespace wormix_core.Controllers.Http.Account;
 
-[ApiPost("account/reset/stats")]
+[ApiPost("account/reset/parameters")]
 public class ResetParametersController : HttpGameController
 {
     public override ISerializable ProcessMessage(ISerializable gameMessage, TcpSession? session)
     {
         //TODO: implement
-        return new ResetParametersResult
-        {
-            Result = ResetParametersResult.Success
-        };
+        return PostRequest(gameMessage, session).ToObject<JObject>()?["data"]?.ToObject<ResetParametersResult>()!;
     }
 }
