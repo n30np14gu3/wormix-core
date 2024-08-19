@@ -6,14 +6,14 @@ using wormix_core.Session;
 
 namespace wormix_core.Handlers.Account;
 
-public class PumpReactionRatesHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
+public class ReorderGroupHandler(ICommandSerializer requestSerializer, IGameController controller, TcpSession session) : 
     GameMessageHandler(requestSerializer, controller, session)
 {
     protected override void Process()
     {
-        if (requestMessage is PumpReactionRates)
+        if (requestMessage is ReorderGroup)
         {
-            new PumpReactionRatesResultBinarySerializer()
+            new ReorderGroupResultBinarySerializer()
                 .SerializeCommand(MessageController.ProcessMessage(requestMessage, Client), Client.GetStream());
         }
     }

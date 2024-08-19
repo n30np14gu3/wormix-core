@@ -10,7 +10,7 @@ public class DowngradeWeaponResultBinarySerializer : ICommandSerializer
 {
     public uint GetCommandId()
     {
-        return 1088;
+        return 10088;
     }
 
     public void SerializeCommand(ISerializable command, Stream output)
@@ -36,7 +36,7 @@ public class DowngradeWeaponResultBinarySerializer : ICommandSerializer
                 ms.Write(hash);
             }
             
-            output.Write(responseBytes);
+            output.Write(response);
         }
     }
 

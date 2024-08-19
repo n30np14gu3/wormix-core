@@ -34,10 +34,15 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             
             {11, new BuyBattleHandler(new BuyBattleBinarySerializer(), new BuyBattleController(), this)},
             
+            {12, new AddToGroupHandler(new AddToGroupBinarySerializer(), new AddToGroupController(), this)},
+            {13, new RemoveFromGroupHandler(new RemoveFromGroupBinarySerializer(), new RemoveFromGroupController(), this)},
+            
             {14, new DistributePointsHandler(new DistributePointsBinarySerializer(), new DistributePointsController(), this)},
             {15, new ResetParametersHandler(new ResetParametersBinarySerializer(), new ResetParametersController(), this)},
             
             {16, new PingHandler(new PingBinarySerializer(), new PingController(), this)},
+            
+            {22, new ReorderGroupHandler(new ReorderGroupBinarySerializer(), new ReorderGroupController(), this)},
             
             {25, new SelectStuffHandler(new SelectStuffBinarySerializer(), new SelectStuffController(), this)},
             
