@@ -5,11 +5,11 @@ using wormix_core.Session;
 
 namespace wormix_core.Controllers.Http.Account;
 
-[ApiPost("craft/upgrade_weapon")]
-public class UpgradeWeaponController : HttpGameController
+[ApiPost("craft/downgrade_weapon")]
+public class DowngradeWeaponController : HttpGameController
 {
     public override ISerializable ProcessMessage(ISerializable gameSerializable, TcpSession? session)
     {
-        return PostRequest(gameSerializable, session).ToObject<JObject>()?["data"]?.ToObject<UpgradeWeaponResult>()!;
+        return PostRequest(gameSerializable, session).ToObject<JObject>()?["data"]?.ToObject<DowngradeWeaponResult>()!;
     }
 }

@@ -56,6 +56,7 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             {84, new EndBattleHandler(new EndBattleBinarySerializer(), new EndBattleController(), this)},
             
             {86, new UpgradeWeaponHandler(new UpgradeWeaponBinarySerializer(), new UpgradeWeaponController(), this)},
+            {88, new DowngradeWeaponHandler(new DowngradeWeaponBinarySerializer(), new DowngradeWeaponController(), this)}
         };
     }
     protected override void OnMessage(Stream dataStream)
