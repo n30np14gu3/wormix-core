@@ -1,19 +1,29 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
+﻿using wormix_core.Extensions;
+using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-/// <summary>
-/// Paste from ru.pragmatix.wormix.messages.structures.ShopItemStructure
-/// </summary>
-public struct ShopItemStructure
+namespace wormix_core.Pragmatix.Wormix.Messages.Structures;
+
+public struct ShopItemStructure() : ISerializable
 {
-    public const int Money = 1;
     public const int RealMoney = 0;
+    public const int Money = 1;
 
-    public int Id;
+    public uint Id;
+    public int Count = 0;
     public int MoneyType;
-    public int Count;
-
-    public override string ToString()
+    
+    public uint GetSize()
     {
-        return $"ShopItemStructure{{id={Id},count={Count},moneyType={MoneyType}}}";
+        return 4 //Id
+               + 4 //Count
+               + 4; //MoneyType
+    }
+
+    public void Serialize(Stream output)
+    {
+        BinaryWriter bw = new BinaryWriter(output);
+        bw.WriteUInt32Be(Id);
+        bw.WriteUInt32Be((uint)Count);
+        bw.WriteUInt32Be((uint)MoneyType);
     }
 }
