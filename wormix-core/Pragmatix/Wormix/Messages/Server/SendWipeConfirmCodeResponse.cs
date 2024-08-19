@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct SendWipeConfirmCodeResponse
+namespace wormix_core.Pragmatix.Wormix.Messages.Server;
+
+public struct SendWipeConfirmCodeResponse : ISerializable
 {
     public const int Ok = 0;
     public const int DailyLimitExceeded = 1;
@@ -8,5 +10,16 @@ public struct SendWipeConfirmCodeResponse
     public const int WrongMobileNumber = 3;
     public const int Error = 3;
 
-    public int Result;
+    public byte Result;
+    
+    public uint GetSize()
+    {
+        return 1;
+    }
+
+    public void Serialize(Stream output)
+    {
+        BinaryWriter bw = new BinaryWriter(output);
+        bw.Write(Result);
+    }
 }

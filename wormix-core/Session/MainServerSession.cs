@@ -18,6 +18,8 @@ namespace wormix_core.Session;
 public class MainServerSession(TcpServer server) : TcpSession(server)
 {
     private Dictionary<uint, GameMessageHandler> _handlers = new();
+
+    private bool _wipeRequested;
     
     private Dictionary<uint, GameMessageHandler> GetHandlers()
     {
@@ -50,7 +52,12 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             
             {46, new GetWhoPumpedReactionHandler(new GetWhoPumpedReactionBinarySerializer(), new GetWhoPumpedReactionController(), this)},
             
+            {48, new WipeHandler(new WipeProfileBinarySerializer(), new WipeProfileController(), this)},
+            
             {49, new BuyReactionRateHandler(new BuyReactionRateBinarySerializer(), new BuyReactionRateController(), this)},
+            
+            
+            {52, new WipeHandler(new SendWipeConfirmCodeBinarySerializer(), new SendWipeConfirmCodeController(), this)},
             
             {58, new BuyUnlockMissionHandler(new BuyUnlockMissionBinarySerializer(), new BuyUnlockMissionController(), this)},
             
@@ -105,4 +112,8 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             SessionClient?.Close();
         }
     }
+
+    public bool WipeRequested() => _wipeRequested;
+
+    public bool SetWipeRequest() => _wipeRequested = true;
 }
