@@ -47,6 +47,8 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             
             {49, new BuyReactionRateHandler(new BuyReactionRateBinarySerializer(), new BuyReactionRateController(), this)},
             
+            {58, new BuyUnlockMissionHandler(new BuyUnlockMissionBinarySerializer(), new BuyUnlockMissionController(), this)},
+            
             {81, new SearchTheHouseHandler(new SearchTheHouseBinarySerializer(), new SearchTheHouseController(), this)},
             {82, new PumpReactionRatesHandler(new PumpReactionRatesBinarySerializer(), new PumpReactionRatesController(), this)},
             {83, new PumpReactionRateHandler(new PumpReactionRateBinarySerializer(), new PumpReactionRateController(), this)},

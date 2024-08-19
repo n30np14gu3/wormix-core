@@ -12,7 +12,7 @@ public struct ShopResult() : ISerializable
     public const int NotEnoughMoney = 3;
     public const int ConfirmFailure = 4;
 
-    public int Result = 4;
+    public short Result = 4;
     public List<WeaponStructure> Weapons = new();
     public List<short> Stuff = new();
     
@@ -23,7 +23,7 @@ public struct ShopResult() : ISerializable
             (uint)(
                 2 //Result
                 + 2 + Weapons.Sum((x) => x.GetSize() + 2) //Weapons[]
-                + 2 + Weapons.Sum((x) => x.GetSize() + 2) //Stuff[]
+                + 2 + Stuff.Count * 2 //Stuff[]
                 );
     }
 
