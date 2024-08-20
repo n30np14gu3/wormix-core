@@ -20,7 +20,13 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
     private Dictionary<uint, GameMessageHandler> _handlers = new();
 
     private bool _wipeRequested;
-    
+
+    protected override void OnConnected()
+    {
+        if (_handlers.Count == 0)
+            _handlers = GetHandlers();
+    }
+
     private Dictionary<uint, GameMessageHandler> GetHandlers()
     {
         return new()
@@ -71,11 +77,9 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             {88, new DowngradeWeaponHandler(new DowngradeWeaponBinarySerializer(), new DowngradeWeaponController(), this)}
         };
     }
+    
     protected override void OnMessage(Stream dataStream)
     {
-        if (_handlers.Count == 0)
-            _handlers = GetHandlers();
-        
         try
         {
             BinaryCommandHeader cmd = new BinaryCommandHeader();
