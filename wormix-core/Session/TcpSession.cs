@@ -232,16 +232,12 @@ public class TcpSession
         }
         catch (ArgumentException ex)
         {
-            if(log)
-                ColorPrint.WriteLine($"[{this}] Argument exception: {ex.Message}", ConsoleColor.Red);
+            ColorPrint.WriteLine($"[{this}] Argument exception: {ex.Message}", ConsoleColor.Red);
         }
         catch (Exception ex)
         {
-            if (log)
-            {
-                ColorPrint.WriteLine($"[{this}] Unknown error: {ex.Message}", ConsoleColor.Red);
-                ColorPrint.WriteLine($"[{this}] Closing client connection", ConsoleColor.Red);
-            }
+            ColorPrint.WriteLine($"[{this}] Unknown error: {ex.Message}", ConsoleColor.Red);
+            ColorPrint.WriteLine($"[{this}] Closing client connection", ConsoleColor.Red);
             sessionClient?.Close();
         }
     }
