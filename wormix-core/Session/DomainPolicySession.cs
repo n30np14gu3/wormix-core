@@ -13,12 +13,12 @@ public class DomainPolicySession(TcpServer server) : TcpSession(server)
 
     protected override void OnMessage(Stream dataStream)
     {
-        if(SessionClient == null)
+        if(sessionClient == null)
             return;
-        byte[] policy = new byte[SessionClient.Available];
-        SessionClient.Client.Receive(policy);
+        byte[] policy = new byte[sessionClient.Available];
+        sessionClient.Client.Receive(policy);
         SendMessage(Encoding.UTF8.GetBytes(_defaultPolicy));
         Thread.Sleep(1000);
-        SessionClient.Close(); //Close after sending
+        sessionClient.Close(); //Close after sending
     }
 }
