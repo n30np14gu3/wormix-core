@@ -24,6 +24,11 @@
     }
   },
   
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  },
+  
   "ApiUrl": "http://127.0.0.1:8000/api/internal/"
   
 }

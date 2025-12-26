@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
+using wormix_core.Extensions;
 using wormix_core.Session;
 
 namespace wormix_core.Server;
@@ -109,19 +110,25 @@ public class TcpServer
     {
         foreach (var client in Sessions)
             client.Value.SendMessage(message);
-        
     }
     
     private async void BeginListen()
     {
         while (IsRunning)
         {
-            TcpClient newClient = await _listener.AcceptTcpClientAsync();
-            Guid sessionId = Guid.NewGuid();
-            Sessions.TryAdd(sessionId, CreateSession());
-            
-            FindSession(sessionId)?.SetupSession(sessionId, newClient);
-            FindSession(sessionId)?.StartSession();
+            try
+            {
+                TcpClient newClient = await _listener.AcceptTcpClientAsync();
+                Guid sessionId = Guid.NewGuid();
+                Sessions.TryAdd(sessionId, CreateSession());
+
+                FindSession(sessionId)?.SetupSession(sessionId, newClient);
+                FindSession(sessionId)?.StartSession();
+            }
+            catch (Exception ex)
+            {
+                ColorPrint.WriteLine($"{this} session accept error: {ex.Message}", ConsoleColor.Red);
+            }
         }
     }
     

@@ -1,4 +1,5 @@
 ﻿using wormix_core.Controllers;
+using wormix_core.Facades;
 using wormix_core.Pragmatix.Flox.Serialization.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 using wormix_core.Pragmatix.Wormix.Messages.Client;
@@ -22,6 +23,7 @@ public class LoginHandler(ICommandSerializer requestSerializer, IGameController 
             ISerializable result = MessageController.ProcessMessage(loginRequest, Client);
             if (result is EnterAccount account) //OK
             {
+                Cache.InitCache(Client);
                 Client.SetToken(account.SessionKey);
                 EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
                 enterSerializer.SerializeCommand(account, Client.GetStream());
