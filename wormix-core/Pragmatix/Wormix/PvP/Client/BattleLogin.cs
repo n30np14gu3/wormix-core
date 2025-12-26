@@ -1,6 +1,8 @@
-﻿namespace wormix_core.Pragmatix.Wormix.PvP.Client;
+﻿using wormix_core.Pragmatix.Wormix.Messages.Interfaces;
 
-public struct BattleLogin()
+namespace wormix_core.Pragmatix.Wormix.PvP.Client;
+
+public struct BattleLogin() : ISerializable
 {
     public uint Id;
     public bool FirstTurn;
@@ -13,5 +15,25 @@ public struct BattleLogin()
 
     public uint BattleId;
     
-    public uint SocialId;
+    public byte SocialId;
+    
+    public uint GetSize()
+    {
+        return (uint)(
+            2 //Id
+            + 1 //FirstTurn
+            + 2 + AuthKey.Length //AuthKey
+            + 2 + EnemyIds.Count * 2 //EnemyIds
+            + 2 + MainHost.Length //MainHost
+            + 4 //MainPort
+            + 4 //BattleId
+            + 1 //SocialId
+            
+        );
+    }
+
+    public void Serialize(Stream output)
+    {
+        //Not needed
+    }
 }

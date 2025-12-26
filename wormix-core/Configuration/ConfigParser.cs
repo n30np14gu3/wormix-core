@@ -16,6 +16,12 @@ public class ConfigParser
             throw new Exception("ApiUrl is undefined!");
 
         Config.Url = config.ApiUrl;
+
+
+        if (config.Redis == null)
+            throw new Exception("Can't find redis configuration");
+
+        Config.RedisConfig = config.Redis;
         
         string serverAddress = config.Local ? "127.0.0.1" : "0.0.0.0";
         foreach (var server in config.Servers)

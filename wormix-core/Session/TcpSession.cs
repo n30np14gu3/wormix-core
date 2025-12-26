@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using StackExchange.Redis;
 using wormix_core.Extensions;
 using wormix_core.Handlers;
 using wormix_core.Pragmatix.Flox.Serialization.Internals;
@@ -33,7 +34,17 @@ public class TcpSession
     /// </summary>
     private readonly Thread _sessionThread;
 
+    
+    /// <summary>
+    /// Cache redis connection
+    /// </summary>
+    private readonly ConnectionMultiplexer _redisConnection;
 
+    /// <summary>
+    /// Redis cache database
+    /// </summary>
+    public readonly IDatabase Cache;
+    
     /// <summary>
     /// Session auth token
     /// </summary>
@@ -41,12 +52,23 @@ public class TcpSession
 
     public TcpSession(TcpServer server)
     {
+        _redisConnection = ConnectionMultiplexer.Connect($"{Config.RedisConfig?.Host}:{Config.RedisConfig?.Port}");
+        _redisConnection.ConnectionFailed += RedisConnectionOnConnectionFailed;
+        Cache = _redisConnection.GetDatabase();
+        
         handlers = new();
         _token = string.Empty;
         Server = server;
         _sessionThread = new Thread(MessageLoop);
     }
+
+    private void RedisConnectionOnConnectionFailed(object? sender, ConnectionFailedEventArgs e)
+    {
+        ColorPrint.WriteLine($"{this}\t[{Id}] Redis connection was closed!", ConsoleColor.Red);
+        CloseSession();
+    }
     
+
     /// <summary>
     /// Setup client session
     /// </summary>
@@ -80,6 +102,7 @@ public class TcpSession
     public void StopSession()
     {
         sessionClient?.Close();
+        Facades.Cache.ClearCache(this);
         if(_sessionThread.IsAlive) 
             _sessionThread.Interrupt();
         OnDisconnected();
@@ -100,7 +123,7 @@ public class TcpSession
     public string SetToken(string token) => _token = token;
     
     /// <summary>
-    /// Send message to server
+    /// Send message to client
     /// </summary>
     /// <param name="message"></param>
     public void SendMessage(byte[] message)
@@ -113,7 +136,21 @@ public class TcpSession
     /// </summary>
     /// <returns>TcpClient NetworkStream object</returns>
     public NetworkStream GetStream() => sessionClient?.GetStream()!;
+    
+    /// <summary>
+    /// Send message to specific client
+    /// </summary>
+    /// <param name="sessionId">Client session GUID</param>
+    /// <param name="message">client message</param>
+    public void SendTo(Guid sessionId, byte[] message)
+    {
+        var session = Server.FindSession(sessionId);
+        if(session == null)
+            return;
 
+        session.SendMessage(message);
+    }
+    
     /// <summary>
     /// On TcpClient connected handler
     /// </summary>
@@ -122,6 +159,7 @@ public class TcpSession
         //Init game commands handlers
         if (handlers.Count == 0)
             handlers = GetHandlers();
+        
     }
 
     /// <summary>
@@ -129,7 +167,7 @@ public class TcpSession
     /// </summary>
     protected virtual void OnDisconnected()
     {
-        
+        _redisConnection.Close();
     }
     
     /// <summary>
