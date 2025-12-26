@@ -75,7 +75,7 @@ abstract class Program
         
         Console.WriteLine("Setup completed. Let's rolling...");
         Thread.Sleep(3000);
-        Console.Clear();
+        //Console.Clear();
         gui.GuiLoop();
     }
 }
